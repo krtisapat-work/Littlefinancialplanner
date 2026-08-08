@@ -1,0 +1,10 @@
+# ไฟล์ที่ไม่ต้องขึ้น repo สาธารณะ (คอมเมนต์ต้องอยู่บรรทัดของตัวเอง)
+index_backup_*.html
+update_funds.log
+*.bak
+
+# โน้ตภายใน (RULES/CHANGELOG/SESSION_LOG/transcripts) — ไม่ขึ้น repo สาธารณะ
+docs/
+
+# ตัวรันฝั่ง Windows (มี path เครื่อง) — ใช้เฉพาะในเครื่อง ไม่ต้องขึ้นเว็บ
+run_update_funds.bat

@@ -1,0 +1,41 @@
+name: Update AIA fund data (Finnomena)
+
+# รันอัตโนมัติทุกวัน 08:00 เวลาไทย (= 01:00 UTC) + กดรันเองได้จากแท็บ Actions
+on:
+  schedule:
+    - cron: '0 1 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write        # ให้ commit ข้อมูลกองทุนที่อัปเดตกลับเข้า repo ได้
+
+concurrency:
+  group: update-funds
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Fetch fund data from Finnomena
+        run: node update_funds.js
+
+      - name: Commit updated fund data (if changed)
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html funds.json
+          if git diff --staged --quiet; then
+            echo "No fund-data changes."
+          else
+            git commit -m "Auto-update fund data ($(date -u +%Y-%m-%d))"
+            git push
+          fi
