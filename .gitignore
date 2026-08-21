@@ -8,3 +8,5 @@ docs/
 
 # ตัวรันฝั่ง Windows (มี path เครื่อง) — ใช้เฉพาะในเครื่อง ไม่ต้องขึ้นเว็บ
 run_update_funds.bat
+
+artifact_planner.html
