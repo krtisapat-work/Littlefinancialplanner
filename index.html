@@ -157,7 +157,7 @@ tfoot td{font-weight:800;background:#fbfbfc;border-top:2px solid var(--red)}
 /* modal */
 .ov{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:60;padding:16px}
 .ov.on{display:flex}
-.modal{background:#fff;border-radius:16px;max-width:560px;width:100%;max-height:88vh;overflow:auto;padding:24px}
+.modal{background:#fff;border-radius:16px;max-width:560px;width:100%;min-width:0;max-height:88vh;overflow:auto;padding:24px}
 .modal h2{margin:0 0 2px;color:var(--red);font-size:19px}.modal .en{color:var(--mut);font-size:13px}
 .modal h4{margin:16px 0 6px;font-size:14px;border-left:3px solid var(--red);padding-left:8px}
 .modal ul{padding-left:20px}.modal li{margin:5px 0}
@@ -264,6 +264,15 @@ tfoot td{font-weight:800;background:#fbfbfc;border-top:2px solid var(--red)}
 .l9facts span{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:4px 11px;font-size:12px;font-weight:700}
 .agentonly{display:none}
 body.agent .agentonly{display:block}
+/* 9/99 เมื่อแสดงในหน้าต่างรายละเอียดของแท็บ "แบบประกัน" (v15) */
+.modal .l9hero h2{color:#fff}
+.modal .l9hero .en{color:#ffd7e0}
+.modal .l9hero{margin:-4px 0 14px}
+.l9hero .mclose{background:rgba(255,255,255,.22);color:#fff;margin:-2px -2px 0 8px}
+.l9hero h2{clear:none}
+.modal .l9card h5{border:0;padding:0;margin:0 0 9px}
+.l9grid .l9card{min-width:0}
+@media(max-width:700px){.modal .l9grid{grid-template-columns:1fr}.modal{padding:16px}}
 .card .btns{flex-wrap:wrap}
 </style>
 </head>
@@ -289,7 +298,6 @@ body.agent .agentonly{display:block}
   <div class="tab" data-tab="funds" onclick="switchTab('funds')">กองทุน</div>
   <div class="tab" data-tab="tax" onclick="switchTab('tax')">วางแผนภาษี</div>
   <div class="tab" data-tab="health" onclick="switchTab('health')">🩺 ตรวจสุขภาพ</div>
-  <div class="tab" data-tab="li999" onclick="switchTab('li999')">💎 9/99 ไลฟ์ไทม์ อินคัม</div>
   <div class="tab tab-back" data-tab="back" onclick="switchTab('back')">🔐 หลังบ้าน (เบี้ย+คอม)</div>
  </div>
 
@@ -412,23 +420,6 @@ body.agent .agentonly{display:block}
   </details>
  </div>
 
- <div class="panel" id="p-li999">
-  <div class="l9hero">
-   <h2>เอไอเอ ไลฟ์ไทม์ อินคัม 9/99 (มีเงินปันผล)</h2>
-   <div class="en">AIA Lifetime Income 9/99 (Par) · ประกันสะสมทรัพย์แบบมีส่วนร่วมในเงินปันผล</div>
-   <div class="l9facts"><span>ชำระเบี้ยฯ 9 ปี</span><span>คุ้มครองถึงอายุ 99 ปี</span><span>อายุรับ 15 วัน – 65 ปี</span><span>ทุนขั้นต่ำ 100,000 บาท</span><span>ตอบคำถามสุขภาพอย่างสั้น (SIO) 3 ข้อ</span><span>ลดหย่อนภาษีสูงสุด 100,000 บาท</span></div>
-  </div>
-  <div class="l9ctrl">
-   <div><label>อายุผู้เอาประกันภัย (ปี)</label><input id="l9Age" type="number" min="0" max="65" value="35" style="width:82px" oninput="renderLi999()"></div>
-   <div><label>เพศ</label><select id="l9Gender" onchange="renderLi999()"><option value="F">หญิง</option><option value="M">ชาย</option></select></div>
-   <div><label>จำนวนเงินเอาประกันภัย (บาท)</label><input id="l9SA" type="text" inputmode="numeric" value="119,190" style="width:126px;text-align:right" oninput="grpCaret(this)" onchange="li999Sync('sa')"></div>
-   <div><label>เบี้ยประกันภัยรายปี (บาท)</label><input id="l9Prem" type="text" inputmode="numeric" value="100,000" style="width:126px;text-align:right" oninput="grpCaret(this)" onchange="li999Sync('prem')"></div>
-   <div><label>อัตราเบี้ยต่อทุน 1,000 บาท</label><input id="l9Rate" type="text" inputmode="decimal" value="839.00" style="width:96px;text-align:right" onchange="li999Sync('sa')"></div>
-   <div class="agentonly"><label>เงื่อนไขคอมมิชชั่น</label><select id="l9Rider" onchange="renderLi999()"><option value="high">เข้าเงื่อนไข (แนบ Rider ≥20% / ≥18,000 ต่อปี)</option><option value="low">ไม่เข้าเงื่อนไข</option></select></div>
-  </div>
-  <div id="l9Body"></div>
-  <div class="hint">ตัวเลขในหน้านี้คำนวณจาก<b>กลไกผลประโยชน์ที่ระบุในโบรชัวร์</b> (เงินจ่ายคืน 1%/2%/3% · ครบกำหนด 900% · ผลประโยชน์เสียชีวิตแบบขั้นบันได) เฉพาะ<b>ส่วนการันตี</b> — เงินปันผลรายงวดและ Terminal Dividend เป็นแบบ<b>ไม่รับรองการจ่าย</b> จึงไม่นำมารวม · ผลประโยชน์จริงเป็นไปตามที่ระบุในกรมธรรม์และใบเสนอขายของ เอไอเอ</div>
- </div>
  <div class="panel" id="p-back">
   <div class="hint">โหมดหลังบ้านสำหรับตัวแทนเท่านั้น · แก้ทุน/แบบชำระ/เบี้ยที่นี่หรือแท็บ "แผนของคุณ" ได้ทั้งคู่ (ข้อมูลชุดเดียวกัน) · "คอมรวมทั้งสัญญา" คิดตามจำนวนปีที่ตารางคอมมิชชั่นระบุ และคิดจากเบี้ยปีแรกคงที่ · เงื่อนไข rider มีผลกับอัตราคอมของบางแบบ</div>
   <div class="qwrap">
@@ -603,7 +594,7 @@ function renderGrid(){
       <ul>${p.hl.slice(0,3).map(h=>`<li>${h}</li>`).join('')}</ul>
       <div class="meta"><span>อายุรับ: ${p.entry}</span>${p.minSA?`<span>ทุนขั้นต่ำ: ${fmt(p.minSA)}</span>`:''}<span>${auto?'✅ คำนวณเบี้ยอัตโนมัติ':'✍️ กรอกเบี้ยเอง'}</span></div>
       <div class="btns">
-        <button class="b-detail" onclick="showDetail('${p.id}')">รายละเอียด</button>
+        <button class="b-detail" onclick="showDetail('${p.id}')">${p.id==='lifetime_income_999'?'รายละเอียด + ตารางผลประโยชน์ 💎':'รายละเอียด'}</button>
         ${docLinksHtml(p.id,true)}
         <button class="b-add ${added?'added':''}" onclick="toggleAdd('${p.id}')">${added?'✓ อยู่ในแผนแล้ว':'+ เพิ่มในแผน'}</button>
       </div></div>`;
@@ -613,6 +604,13 @@ function renderGrid(){
 // ---------- detail modal ----------
 function showDetail(id){
   const p = byId[id];
+  if(id==='lifetime_income_999'){                    // v15: หน้าสรุป 9/99 ย้ายมาอยู่ในแท็บ "แบบประกัน"
+    document.getElementById('modal').innerHTML = li999DetailHtml();
+    document.getElementById('modal').classList.add('wide');
+    document.getElementById('ov').classList.add('on');
+    renderLi999();
+    return;
+  }
   document.getElementById('modal').innerHTML =
    `<button class="mclose" onclick="closeModal()">ปิด ✕</button>
     <h2>${p.th}</h2><div class="en">${p.en}</div>
@@ -910,7 +908,6 @@ function switchTab(name){
   document.querySelectorAll('.panel').forEach(x=>x.classList.remove('on'));
   document.getElementById('p-'+name).classList.add('on');
   if(name==='funds') renderFunds();
-  if(name==='li999') renderLi999();
   if(name==='health') renderHealth();
 }
 document.getElementById('cAge').addEventListener('input',()=>{renderQuote();renderBack();});
@@ -1457,7 +1454,61 @@ function li999Years(age){ return Math.max(1, 99 - age); }   /* ปีกรม�
   };
 })();
 
-/* ---------- หน้าสรุป 9/99 ---------- */
+/* ---------- หน้ารายละเอียด 9/99 (v15: แสดงในหน้าต่างของแท็บ "แบบประกัน" แทนแท็บแยก) ---------- */
+function li999DetailHtml(){
+  const p=byId['lifetime_income_999'];
+  const c=customer();
+  let age=(c.age!=null)?c.age:35;
+  if(!(age>=0)) age=35;
+  if(age>65) age=65;                                  /* อายุรับประกันสูงสุด 65 ปี */
+  const gender=c.gender||'F';
+  const it=sel['lifetime_income_999'];
+  let sa=it?parseFloat(it.sa):0;
+  if(!(sa>0)) sa=LI999.brochureExample.sa;
+  const rate=LI999.refRate;
+  const prem=sa*rate/1000;
+  return '<div class="l9hero">'+
+     '<button class="mclose l9close" onclick="closeModal()">ปิด ✕</button>'+
+     '<h2>'+p.th+'</h2>'+
+     '<div class="en">'+p.en+' · ประกันสะสมทรัพย์แบบมีส่วนร่วมในเงินปันผล</div>'+
+     '<div class="l9facts"><span>ชำระเบี้ยฯ 9 ปี</span><span>คุ้มครองถึงอายุ 99 ปี</span><span>อายุรับ 15 วัน – 65 ปี</span>'+
+       '<span>ทุนขั้นต่ำ 100,000 บาท</span><span>ตอบคำถามสุขภาพอย่างสั้น (SIO) 3 ข้อ</span><span>ลดหย่อนภาษีสูงสุด 100,000 บาท</span></div>'+
+   '</div>'+
+   '<h4>จุดเด่นของแบบประกัน</h4><ul>'+p.hl.map(function(h){return '<li>'+h+'</li>';}).join('')+'</ul>'+
+   '<h4>เงื่อนไขการรับประกันโดยย่อ</h4>'+
+   '<div class="kv"><b>ประเภท</b><span>'+CATNAME[p.cat]+'</span>'+
+     '<b>อายุรับประกัน</b><span>'+p.entry+'</span>'+
+     '<b>ทุนประกันขั้นต่ำ</b><span>'+fmt(p.minSA)+' บาท</span>'+
+     '<b>แบบชำระเบี้ย</b><span>'+p.terms.map(function(t){return TERMNAME[t]||t;}).join(' / ')+'</span></div>'+
+   '<h4 style="margin-top:18px">คำนวณผลประโยชน์ (เฉพาะส่วนการันตี)</h4>'+
+   '<div class="l9ctrl">'+
+     '<div><label>อายุผู้เอาประกันภัย (ปี)</label><input id="l9Age" type="number" min="0" max="65" value="'+age+'" style="width:82px" oninput="renderLi999()"></div>'+
+     '<div><label>เพศ</label><select id="l9Gender" onchange="renderLi999()">'+
+       '<option value="F"'+(gender==='F'?' selected':'')+'>หญิง</option>'+
+       '<option value="M"'+(gender==='M'?' selected':'')+'>ชาย</option></select></div>'+
+     '<div><label>จำนวนเงินเอาประกันภัย (บาท)</label><input id="l9SA" type="text" inputmode="numeric" value="'+fmt(sa)+'" style="width:126px;text-align:right" oninput="grpCaret(this)" onchange="li999SyncSA()"></div>'+
+     '<div><label>เบี้ยประกันภัยรายปี (บาท)</label><input id="l9Prem" type="text" inputmode="numeric" value="'+fmt(prem)+'" style="width:126px;text-align:right" oninput="grpCaret(this)" onchange="li999SyncPrem()"></div>'+
+     '<div><label>อัตราเบี้ยต่อทุน 1,000 บาท</label><input id="l9Rate" type="text" inputmode="decimal" value="'+rate.toFixed(2)+'" style="width:96px;text-align:right" onchange="li999SyncSA()"></div>'+
+     '<div class="agentonly"><label>เงื่อนไขคอมมิชชั่น</label><select id="l9Rider" onchange="renderLi999()">'+
+       '<option value="high">เข้าเงื่อนไข (แนบ Rider ≥20% / ≥18,000 ต่อปี)</option><option value="low">ไม่เข้าเงื่อนไข</option></select></div>'+
+   '</div>'+
+   '<div id="l9Body"></div>'+
+   '<div class="hint">ตัวเลขในส่วนนี้คำนวณจาก<b>กลไกผลประโยชน์ที่ระบุในโบรชัวร์</b> (เงินจ่ายคืน 1%/2%/3% · ครบกำหนด 900% · ผลประโยชน์เสียชีวิตแบบขั้นบันได) เฉพาะ<b>ส่วนการันตี</b> — เงินปันผลรายงวดและ Terminal Dividend เป็นแบบ<b>ไม่รับรองการจ่าย</b> จึงไม่นำมารวม · ผลประโยชน์จริงเป็นไปตามที่ระบุในกรมธรรม์และใบเสนอขายของ เอไอเอ</div>'+
+   '<div class="btns" style="margin-top:16px"><button class="b-add" style="width:100%" onclick="li999AddFromDetail()">'+(it?'✓ อยู่ในแผนแล้ว (กดเพื่อนำออก)':'+ เพิ่มในแผน')+'</button></div>';
+}
+/* เพิ่มลงแผนพร้อมพาทุน/เบี้ยที่กรอกในหน้านี้ไปด้วย */
+function li999AddFromDetail(){
+  const id='lifetime_income_999';
+  if(sel[id]){ toggleAdd(id); closeModal(); return; }
+  const st=li999State();
+  toggleAdd(id);
+  if(sel[id]){ sel[id].sa=Math.round(st.sa); sel[id].manual=Math.round(st.prem); renderAll(); }
+  closeModal();
+}
+
+/* ---------- ตัวคำนวณ/ตารางผลประโยชน์ 9/99 ---------- */
+function li999SyncSA(){ li999Sync('sa'); }
+function li999SyncPrem(){ li999Sync('prem'); }
 function li999Sync(src){
   /* ผูกทุนประกัน <-> เบี้ยรายปี ผ่านอัตราเบี้ยต่อทุน 1,000 */
   const g=id=>document.getElementById(id);
@@ -1530,10 +1581,10 @@ function renderLi999(){
   const end98=98-s.age;
   const mech='<div class="l9grid">'+
     '<div class="l9card"><h5>💸 เงินจ่ายคืนรายงวด (การันตี)</h5>'+
-      '<table class="bentbl" style="font-size:12.5px"><tr><th style="text-align:left">สิ้นปีกรมธรรม์ที่</th><th>% ของทุนประกัน</th><th>จำนวนเงินต่องวด</th></tr>'+
+      '<div style="overflow-x:auto"><table class="bentbl" style="font-size:12.5px"><tr><th style="text-align:left">สิ้นปีกรมธรรม์ที่</th><th>% ของทุนประกัน</th><th>จำนวนเงินต่องวด</th></tr>'+
       '<tr><td style="text-align:left">2 – 10</td><td class="num">1%</td><td class="num">'+fmt(s.sa*0.01)+'</td></tr>'+
       '<tr><td style="text-align:left">11 – 20</td><td class="num">2%</td><td class="num">'+fmt(s.sa*0.02)+'</td></tr>'+
-      '<tr><td style="text-align:left">21 – '+end98+' <span class="psub">(ถึงอายุ 98 ปี)</span></td><td class="num">3%</td><td class="num">'+fmt(s.sa*0.03)+'</td></tr></table>'+
+      '<tr><td style="text-align:left">21 – '+end98+' <span class="psub">(ถึงอายุ 98 ปี)</span></td><td class="num">3%</td><td class="num">'+fmt(s.sa*0.03)+'</td></tr></table></div>'+
       '<div class="psub" style="margin-top:6px">รวมเงินคืนรายงวดตลอดสัญญา = <b>'+(cbTotal/s.sa*100).toFixed(0)+'%</b> ของทุนประกัน = '+fmt(cbTotal)+' บาท</div></div>'+
     '<div class="l9card"><h5>🎁 เงินครบกำหนดสัญญา</h5>'+
       '<div class="l9big">900%</div>'+
@@ -1791,7 +1842,7 @@ function renderHealth(){
 
 // init
 document.getElementById('agentName').value = lGet('aia_agent_name')||'';
-renderChips(); renderGrid(); renderQuote(); applyMode(); loadTax(); renderTax(); renderFunds(); renderHealth(); renderLi999();
+renderChips(); renderGrid(); renderQuote(); applyMode(); loadTax(); renderTax(); renderFunds(); renderHealth();
 </script>
 </body>
 </html>
