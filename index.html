@@ -172,7 +172,7 @@ tfoot td{font-weight:800;background:#fbfbfc;border-top:2px solid var(--red)}
 @media print{
  .print-head{display:block;font-size:13px;color:#333;margin-bottom:10px;border-bottom:1px solid #ddd;padding-bottom:6px}
  body{background:#fff}
- header .hright,.tabs,#p-cat,#p-back,.toolbar,.no-print,.foot,.b-rm{display:none!important}
+ header .hright,.tabs,#p-cat,#p-back,.agentonly,.toolbar,.no-print,.foot,.b-rm{display:none!important}
  #p-quote{display:block!important}
  .qwrap,.sumcard,.vizcard,.bencard{box-shadow:none;border-color:#ccc}
  td input,td select{border:none;background:none;-webkit-appearance:none;appearance:none}
@@ -230,6 +230,41 @@ tfoot td{font-weight:800;background:#fbfbfc;border-top:2px solid var(--red)}
 .hcqbadge{font-size:10.5px;background:#fff0f4;color:var(--red);border:1px solid #f0b8c8;border-radius:6px;padding:1px 6px;font-weight:700}
 .hcdzbody{padding:4px 4px 10px 8px}.hcdzbody ol{margin:4px 0;padding-left:20px}.hcdzbody li{font-size:13px;margin:3px 0}
 @media(max-width:640px){.hcvlabel{font-size:17px}.hctbl{font-size:11px}}
+/* ===== v14 (21 ส.ค. 2569): ลิงก์เอกสาร + หน้า AIA Lifetime Income 9/99 ===== */
+.doclinks{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.doclink{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;color:var(--red);
+  border:1px solid #f2ccd5;background:#fff6f8;border-radius:999px;padding:4px 10px;text-decoration:none;white-space:nowrap}
+.doclink:hover{background:var(--red);color:#fff;border-color:var(--red)}
+.doclinks.sm{gap:4px;margin-top:4px}
+.doclinks.sm .doclink{font-size:11px;padding:2px 7px}
+.b-doc{display:inline-block;font-size:12.5px;font-weight:700;color:var(--red);background:#fff;border:1px solid #f2ccd5;
+  border-radius:9px;padding:9px 10px;text-decoration:none;white-space:nowrap;cursor:pointer}
+.b-doc:hover{background:#fff6f8}
+.riskpill{display:inline-block;font-size:10.5px;font-weight:700;border-radius:999px;padding:1px 7px;margin-left:5px;white-space:nowrap}
+.riskpill.r1,.riskpill.r2,.riskpill.r3{background:#e8f6ee;color:#1a8a48}
+.riskpill.r4{background:#eaf2fc;color:#2a78d6}
+.riskpill.r5{background:#fff4e5;color:#b8730a}
+.riskpill.r6,.riskpill.r7,.riskpill.r8{background:#fdeaee;color:#c1123c}
+/* หน้า 9/99 */
+.l9ctrl{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:flex-end;background:#fff;border:1px solid var(--line);
+  border-radius:14px;padding:13px 14px;margin-bottom:14px}
+.l9ctrl label{display:block;font-size:12px;color:var(--mut);font-weight:700;margin-bottom:3px}
+.l9ctrl input,.l9ctrl select{padding:9px;border:1px solid var(--line);border-radius:9px;font-family:inherit;font-size:14px}
+.l9grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-bottom:14px}
+.l9card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:14px}
+.l9grid .l9card{margin-bottom:0}
+.l9card h5{margin:0 0 9px;font-size:14.5px;color:var(--ink)}
+.l9big{font-size:40px;font-weight:800;color:var(--red);line-height:1.1;margin:2px 0 6px}
+.l9formula{background:var(--gy);border:1px dashed var(--line);border-radius:9px;padding:8px 11px;margin-top:6px;font-size:13px}
+.l9ol,.l9ul{margin:0;padding-left:19px;font-size:13px;line-height:1.75}
+.l9hero{background:linear-gradient(105deg,#D31145,#8f0b2e);color:#fff;border-radius:16px;padding:17px 19px;margin-bottom:14px}
+.l9hero h2{margin:0 0 3px;font-size:21px}
+.l9hero .en{color:#ffd7e0;font-size:12.5px;margin-bottom:9px}
+.l9facts{display:flex;flex-wrap:wrap;gap:7px}
+.l9facts span{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:4px 11px;font-size:12px;font-weight:700}
+.agentonly{display:none}
+body.agent .agentonly{display:block}
+.card .btns{flex-wrap:wrap}
 </style>
 </head>
 <body>
@@ -254,6 +289,7 @@ tfoot td{font-weight:800;background:#fbfbfc;border-top:2px solid var(--red)}
   <div class="tab" data-tab="funds" onclick="switchTab('funds')">กองทุน</div>
   <div class="tab" data-tab="tax" onclick="switchTab('tax')">วางแผนภาษี</div>
   <div class="tab" data-tab="health" onclick="switchTab('health')">🩺 ตรวจสุขภาพ</div>
+  <div class="tab" data-tab="li999" onclick="switchTab('li999')">💎 9/99 ไลฟ์ไทม์ อินคัม</div>
   <div class="tab tab-back" data-tab="back" onclick="switchTab('back')">🔐 หลังบ้าน (เบี้ย+คอม)</div>
  </div>
 
@@ -341,7 +377,7 @@ tfoot td{font-weight:800;background:#fbfbfc;border-top:2px solid var(--red)}
  </div>
 
  <div class="panel" id="p-funds">
-  <div class="hint">กองทุนรวมภายใต้กรมธรรม์ <b>ยูนิตลิงค์</b> ของ เอไอเอ (จัดการโดย AIA Investment Management) · NAV/ผลตอบแทนดึงจาก <b>Finnomena</b> · <span id="fundsAsOf"></span><br>ผลการดำเนินงานในอดีตไม่ได้รับรองผลในอนาคต · การลงทุนมีความเสี่ยง โปรดศึกษาก่อนตัดสินใจ</div>
+  <div class="hint">กองทุนรวมภายใต้กรมธรรม์ <b>ยูนิตลิงค์</b> ของ เอไอเอ (จัดการโดย AIA Investment Management) · NAV/ผลตอบแทนดึงจาก <b>Finnomena</b> · <span id="fundsAsOf"></span><br>กด <b>📄 Fact Sheet</b> / <b>📘 หนังสือชี้ชวน</b> / <b>🔗 AIAIM</b> เพื่อเปิดเอกสารทางการของกองทุนจาก aiaim.co.th<br>ผลการดำเนินงานในอดีตไม่ได้รับรองผลในอนาคต · การลงทุนมีความเสี่ยง โปรดศึกษาก่อนตัดสินใจ</div>
   <div class="sumrow" id="fundsSummary"></div>
   <div style="display:flex;gap:10px;align-items:center;margin:8px 0;flex-wrap:wrap">
    <label style="font-size:13px">เรียงตาม
@@ -376,6 +412,23 @@ tfoot td{font-weight:800;background:#fbfbfc;border-top:2px solid var(--red)}
   </details>
  </div>
 
+ <div class="panel" id="p-li999">
+  <div class="l9hero">
+   <h2>เอไอเอ ไลฟ์ไทม์ อินคัม 9/99 (มีเงินปันผล)</h2>
+   <div class="en">AIA Lifetime Income 9/99 (Par) · ประกันสะสมทรัพย์แบบมีส่วนร่วมในเงินปันผล</div>
+   <div class="l9facts"><span>ชำระเบี้ยฯ 9 ปี</span><span>คุ้มครองถึงอายุ 99 ปี</span><span>อายุรับ 15 วัน – 65 ปี</span><span>ทุนขั้นต่ำ 100,000 บาท</span><span>ตอบคำถามสุขภาพอย่างสั้น (SIO) 3 ข้อ</span><span>ลดหย่อนภาษีสูงสุด 100,000 บาท</span></div>
+  </div>
+  <div class="l9ctrl">
+   <div><label>อายุผู้เอาประกันภัย (ปี)</label><input id="l9Age" type="number" min="0" max="65" value="35" style="width:82px" oninput="renderLi999()"></div>
+   <div><label>เพศ</label><select id="l9Gender" onchange="renderLi999()"><option value="F">หญิง</option><option value="M">ชาย</option></select></div>
+   <div><label>จำนวนเงินเอาประกันภัย (บาท)</label><input id="l9SA" type="text" inputmode="numeric" value="119,190" style="width:126px;text-align:right" oninput="grpCaret(this)" onchange="li999Sync('sa')"></div>
+   <div><label>เบี้ยประกันภัยรายปี (บาท)</label><input id="l9Prem" type="text" inputmode="numeric" value="100,000" style="width:126px;text-align:right" oninput="grpCaret(this)" onchange="li999Sync('prem')"></div>
+   <div><label>อัตราเบี้ยต่อทุน 1,000 บาท</label><input id="l9Rate" type="text" inputmode="decimal" value="839.00" style="width:96px;text-align:right" onchange="li999Sync('sa')"></div>
+   <div class="agentonly"><label>เงื่อนไขคอมมิชชั่น</label><select id="l9Rider" onchange="renderLi999()"><option value="high">เข้าเงื่อนไข (แนบ Rider ≥20% / ≥18,000 ต่อปี)</option><option value="low">ไม่เข้าเงื่อนไข</option></select></div>
+  </div>
+  <div id="l9Body"></div>
+  <div class="hint">ตัวเลขในหน้านี้คำนวณจาก<b>กลไกผลประโยชน์ที่ระบุในโบรชัวร์</b> (เงินจ่ายคืน 1%/2%/3% · ครบกำหนด 900% · ผลประโยชน์เสียชีวิตแบบขั้นบันได) เฉพาะ<b>ส่วนการันตี</b> — เงินปันผลรายงวดและ Terminal Dividend เป็นแบบ<b>ไม่รับรองการจ่าย</b> จึงไม่นำมารวม · ผลประโยชน์จริงเป็นไปตามที่ระบุในกรมธรรม์และใบเสนอขายของ เอไอเอ</div>
+ </div>
  <div class="panel" id="p-back">
   <div class="hint">โหมดหลังบ้านสำหรับตัวแทนเท่านั้น · แก้ทุน/แบบชำระ/เบี้ยที่นี่หรือแท็บ "แผนของคุณ" ได้ทั้งคู่ (ข้อมูลชุดเดียวกัน) · "คอมรวมทั้งสัญญา" คิดตามจำนวนปีที่ตารางคอมมิชชั่นระบุ และคิดจากเบี้ยปีแรกคงที่ · เงื่อนไข rider มีผลกับอัตราคอมของบางแบบ</div>
   <div class="qwrap">
@@ -551,6 +604,7 @@ function renderGrid(){
       <div class="meta"><span>อายุรับ: ${p.entry}</span>${p.minSA?`<span>ทุนขั้นต่ำ: ${fmt(p.minSA)}</span>`:''}<span>${auto?'✅ คำนวณเบี้ยอัตโนมัติ':'✍️ กรอกเบี้ยเอง'}</span></div>
       <div class="btns">
         <button class="b-detail" onclick="showDetail('${p.id}')">รายละเอียด</button>
+        ${docLinksHtml(p.id,true)}
         <button class="b-add ${added?'added':''}" onclick="toggleAdd('${p.id}')">${added?'✓ อยู่ในแผนแล้ว':'+ เพิ่มในแผน'}</button>
       </div></div>`;
   }).join('');
@@ -568,6 +622,7 @@ function showDetail(id){
       <b>อายุรับประกัน</b><span>${p.entry}</span>
       <b>ทุนประกันขั้นต่ำ</b><span>${p.minSA?fmt(p.minSA)+' บาท':'ตามแบบผลิตภัณฑ์'}</span>
       <b>แบบชำระเบี้ย</b><span>${p.terms.map(t=>TERMNAME[t]||t).join(' / ')}</span></div>
+    ${docLinksHtml(id)}${docNoteHtml(id)}
     ${BEN[id]?'<h4 style="margin-top:18px">ความคุ้มค่า / ผลประโยชน์ตามปี (ตารางตามอายุ)</h4><div id="valSec"></div>':''}
     <div class="btns" style="margin-top:16px"><button class="b-add" style="width:100%" onclick="toggleAdd('${id}');closeModal()">${sel[id]?'✓ อยู่ในแผนแล้ว':'+ เพิ่มในแผน'}</button></div>`;
   document.getElementById('modal').classList.toggle('wide', !!BEN[id]);
@@ -615,7 +670,9 @@ function saPremCells(id,it,p){
     premCell = pr==null? `<span class="warn">อายุ/แบบนี้ไม่มีในตารางเบี้ย</span>` : `<span class="num">${fmt(pr)}</span>`;
   } else {                                             // กรอกเบี้ยเอง (แสดงตัวเลือกแผน/แบบถ้ามี เช่น CI Hero)
     const pdm=DATA.premiums[id];
-    if(pdm && pdm.plans){
+    if(p.saInput){
+      saCell = `<input type="text" inputmode="numeric" value="${fmt(it.sa)}" oninput="grpCaret(this)" onchange="updateItem('${id}','sa',unnum(this.value))">`;
+    } else if(pdm && pdm.plans){
       const planSel=`<select onchange="updateItem('${id}','plan',this.value)">${pdm.plans.map(pl=>`<option value="${pl.key}" ${pl.key===(it.plan||pdm.plans[0].key)?'selected':''}>${pl.label}</option>`).join('')}</select>`;
       const areaSel=pdm.areas?`<br><select style="margin-top:4px" onchange="updateItem('${id}','area',this.value)">${pdm.areas.map(ar=>`<option value="${ar.key}" ${ar.key===(it.area||pdm.areas[0].key)?'selected':''}>${ar.label}</option>`).join('')}</select>`:'';
       saCell = planSel+areaSel;
@@ -853,6 +910,7 @@ function switchTab(name){
   document.querySelectorAll('.panel').forEach(x=>x.classList.remove('on'));
   document.getElementById('p-'+name).classList.add('on');
   if(name==='funds') renderFunds();
+  if(name==='li999') renderLi999();
   if(name==='health') renderHealth();
 }
 document.getElementById('cAge').addEventListener('input',()=>{renderQuote();renderBack();});
@@ -1261,7 +1319,7 @@ Object.assign(DATA.premiums, {"ci_supercare_prestige":{"model":"per1000","unisex
 Object.assign(BEN, {"ci_supercare_prestige":{"type":"protection","coverToAge":99,"death":{"flatPct":100},"surrender":{"available":false},"src":"ตรวจกับโบรชัวร์: อายุ 45 ทุน 5,000,000 แบบ 20/99 = 243,600/ปี · CI SuperCare สำหรับทุน 5 ล้านขึ้นไป (โครงสร้างจ่ายเหมือน CI SuperCare) · ไม่มีส่วนลดตามทุน"}});
 
 /* ===== unit-link mutual funds (data refreshed by update_funds.js from Finnomena) ===== */
-/*FUNDS_DATA_START*/const FUNDS={"asOf":"2026-08-20","fetchedAt":"2026-08-21T10:33:07.339Z","source":"Finnomena","count":22,"items":[{"code":"AIA-DFI","name":"กองทุนเปิด เอไอเอ ไดเวอร์ซิไฟด์ ฟิกซ์ อินคัม ฟันด์","category":"ตราสารหนี้ทั่วโลก แบบป้องกันความเสี่ยงอัตราแลกเปลี่ยนตามดุลยพินิจของผู้จัดการกองทุน","nav":8.4753,"navDate":"2026-08-19","chg1d":0.26,"ret1m":-1.20186,"ret3m":-0.93625,"ret6m":-3.2754,"ret1y":-1.99813,"ret3y":1.1138,"ret5y":-4.12404,"sharpe1y":-0.708,"maxdd1y":-3.592,"rank1y":95,"aum":286524921.5,"url":"https://www.finnomena.com/fund/AIA-DFI"},{"code":"AIA-ES50","name":"กองทุนเปิด เอไอเอ เอ็นแฮนซ์ เซท 50","category":"หุ้นไทยขนาดใหญ่","nav":14.5025,"navDate":"2026-08-20","chg1d":0.08,"ret1m":-1.50836,"ret3m":6.88044,"ret6m":11.29316,"ret1y":36.28504,"ret3y":7.09011,"ret5y":5.49213,"sharpe1y":1.829,"maxdd1y":-4.049,"rank1y":50,"aum":17159680273.77,"url":"https://www.finnomena.com/fund/AIA-ES50"},{"code":"AIA-GAA","name":"กองทุนเปิด เอไอเอ โกลบอล แอกเกรสซีฟ อโลเคชั่น ฟันด์","category":"กองทุนรวมแบบผสมลงทุนต่างประเทศ","nav":13.5886,"navDate":"2026-08-19","chg1d":0.37,"ret1m":3.56849,"ret3m":6.32208,"ret6m":7.31796,"ret1y":13.22324,"ret3y":12.18471,"ret5y":3.24059,"sharpe1y":0.967,"maxdd1y":-7.034,"rank1y":50,"aum":18335517820.36,"url":"https://www.finnomena.com/fund/AIA-GAA"},{"code":"AIA-GAA-UH","name":"กองทุนเปิด AIA Global Aggressive Allocation Fund - Unhedged","category":"กองทุนรวมแบบผสมลงทุนต่างประเทศ","nav":11.6194,"navDate":"2026-08-19","chg1d":0.34,"ret1m":2.11266,"ret3m":8.25562,"ret6m":14.72891,"ret1y":null,"ret3y":null,"ret5y":null,"sharpe1y":null,"maxdd1y":null,"rank1y":null,"aum":3196657942.05,"url":"https://www.finnomena.com/fund/AIA-GAA-UH"},{"code":"AIA-GAIF","name":"กองทุนเปิด เอไอเอ โกลบอล แอคทีฟ อินคัม ฟันด์","category":"กองทุนรวมแบบผสมลงทุนต่างประเทศ","nav":11.5749,"navDate":"2026-08-19","chg1d":-0.37,"ret1m":0.06657,"ret3m":3.36763,"ret6m":12.21643,"ret1y":13.87462,"ret3y":null,"ret5y":null,"sharpe1y":1.397,"maxdd1y":-2.541,"rank1y":25,"aum":5241725069.35,"url":"https://www.finnomena.com/fund/AIA-GAIF"},{"code":"AIA-GCA","name":"กองทุนเปิด เอไอเอ โกลบอล คอนเวนชั่นนอล อโลเคชั่น ฟันด์","category":"กองทุนรวมแบบผสมลงทุนต่างประเทศ","nav":9.7439,"navDate":"2026-08-19","chg1d":0.35,"ret1m":0.60504,"ret3m":1.52751,"ret6m":0.12125,"ret1y":3.38355,"ret3y":4.96405,"ret5y":-1.59949,"sharpe1y":0.383,"maxdd1y":-3.919,"rank1y":95,"aum":420681232.79,"url":"https://www.finnomena.com/fund/AIA-GCA"},{"code":"AIA-GEQ","name":"กองทุนเปิด เอไอเอ โกลบอล อิควิตี้ ฟันด์","category":"หุ้นทั่วโลก","nav":12.0824,"navDate":"2026-08-19","chg1d":0.39,"ret1m":3.51699,"ret3m":5.98875,"ret6m":8.5317,"ret1y":15.69191,"ret3y":13.58313,"ret5y":2.56767,"sharpe1y":1.064,"maxdd1y":-6.871,"rank1y":50,"aum":10007380948.83,"url":"https://www.finnomena.com/fund/AIA-GEQ"},{"code":"AIA-GMA","name":"กองทุนเปิด เอไอเอ โกลบอล โมเดอเรท อโลเคชั่น ฟันด์","category":"กองทุนรวมแบบผสมลงทุนต่างประเทศ","nav":11.5205,"navDate":"2026-08-19","chg1d":0.35,"ret1m":2.0977,"ret3m":3.95311,"ret6m":3.7537,"ret1y":8.28046,"ret3y":8.55657,"ret5y":0.82467,"sharpe1y":0.789,"maxdd1y":-5.367,"rank1y":75,"aum":2724845661.25,"url":"https://www.finnomena.com/fund/AIA-GMA"},{"code":"AIA-GMA-UH","name":"กองทุนเปิด AIA Global Moderate Allocation Fund - Unhedged","category":"กองทุนรวมแบบผสมลงทุนต่างประเทศ","nav":11.1643,"navDate":"2026-08-19","chg1d":0.32,"ret1m":0.70902,"ret3m":5.99254,"ret6m":10.97052,"ret1y":null,"ret3y":null,"ret5y":null,"sharpe1y":null,"maxdd1y":null,"rank1y":null,"aum":254401112.09,"url":"https://www.finnomena.com/fund/AIA-GMA-UH"},{"code":"AIA-GMSH","name":"กองทุนเปิด AIA Global Moderate Strategic Allocation Fund","category":"กองทุนรวมแบบผสมลงทุนต่างประเทศ","nav":10.7119,"navDate":"2026-08-19","chg1d":0.33,"ret1m":2.05503,"ret3m":3.76933,"ret6m":4.83055,"ret1y":null,"ret3y":null,"ret5y":null,"sharpe1y":null,"maxdd1y":null,"rank1y":null,"aum":644440887.22,"url":"https://www.finnomena.com/fund/AIA-GMSH"},{"code":"AIA-IAA","name":"กองทุนเปิด เอไอเอ คอมบายด์ แอกเกรสซีฟ อโลเคชั่น ฟันด์","category":"กองทุนรวมแบบผสมเชิงรุก (Aggressive)","nav":12.3363,"navDate":"2026-08-19","chg1d":0.07,"ret1m":2.15129,"ret3m":6.66004,"ret6m":8.29105,"ret1y":18.75301,"ret3y":9.93774,"ret5y":null,"sharpe1y":1.597,"maxdd1y":-6.028,"rank1y":75,"aum":11305504202.39,"url":"https://www.finnomena.com/fund/AIA-IAA"},{"code":"AIA-IC","name":"กองทุนเปิด เอไอเอ อินคัม ฟันด์","category":"ตราสารหนี้ระยะยาว","nav":11.569,"navDate":"2026-08-20","chg1d":0.02,"ret1m":0.1619,"ret3m":1.42196,"ret6m":0.80687,"ret1y":1.342,"ret3y":3.84541,"ret5y":2.41822,"sharpe1y":0.393,"maxdd1y":-1.191,"rank1y":5,"aum":10497456218.12,"url":"https://www.finnomena.com/fund/AIA-IC"},{"code":"AIA-ICA","name":"กองทุนเปิด เอไอเอ คอมบายด์ คอนเวนชั่นนอล อโลเคชั่น ฟันด์","category":"กองทุนรวมแบบผสมเสี่ยงต่ำ (Conservative)","nav":11.7884,"navDate":"2026-08-19","chg1d":-0.05,"ret1m":0.71424,"ret3m":3.301,"ret6m":3.60696,"ret1y":8.29452,"ret3y":6.21171,"ret5y":null,"sharpe1y":1.488,"maxdd1y":-3.362,"rank1y":25,"aum":554183277.47,"url":"https://www.finnomena.com/fund/AIA-ICA"},{"code":"AIA-IMA","name":"กองทุนเปิด เอไอเอ คอมบายด์ โมเดอเรท อโลเคชั่น ฟันด์","category":"กองทุนรวมแบบผสมสมดุล (Moderate)","nav":12.0709,"navDate":"2026-08-19","chg1d":0.02,"ret1m":1.44295,"ret3m":4.99356,"ret6m":5.87952,"ret1y":12.961,"ret3y":8.03146,"ret5y":null,"sharpe1y":1.522,"maxdd1y":-4.769,"rank1y":50,"aum":4981655866.2,"url":"https://www.finnomena.com/fund/AIA-IMA"},{"code":"AIA-SEL","name":"กองทุนเปิด เอไอเอ โกลบอล ซีเล็ค อิควิตี้ ฟันด์","category":"หุ้นทั่วโลก - ป้องกันความเสี่ยงอัตราแลกเปลี่ยนเต็มที่","nav":14.0442,"navDate":"2026-08-19","chg1d":-0.41,"ret1m":2.92411,"ret3m":4.12212,"ret6m":4.19087,"ret1y":7.61757,"ret3y":null,"ret5y":null,"sharpe1y":0.377,"maxdd1y":-10.101,"rank1y":75,"aum":3848310599.6,"url":"https://www.finnomena.com/fund/AIA-SEL"},{"code":"AIA-ST","name":"กองทุนเปิด เอไอเอ ตราสารหนี้ระยะสั้น","category":"ตราสารหนี้ระยะสั้น","nav":10.7851,"navDate":"2026-08-20","chg1d":0,"ret1m":0.04638,"ret3m":0.22955,"ret6m":0.45266,"ret1y":1.09578,"ret3y":1.84505,"ret5y":1.44712,"sharpe1y":0.862,"maxdd1y":null,"rank1y":50,"aum":3025576315.94,"url":"https://www.finnomena.com/fund/AIA-ST"},{"code":"AIA-TAA","name":"กองทุนเปิด เอไอเอ แอกเกรสซีฟ อโลเคชั่น ฟันด์","category":"กองทุนรวมแบบผสมเชิงรุก (Aggressive)","nav":11.4646,"navDate":"2026-08-20","chg1d":0.08,"ret1m":-1.37809,"ret3m":6.43161,"ret6m":10.18039,"ret1y":32.66296,"ret3y":6.0022,"ret5y":null,"sharpe1y":1.772,"maxdd1y":-3.954,"rank1y":25,"aum":1990490343.93,"url":"https://www.finnomena.com/fund/AIA-TAA"},{"code":"AIA-TCA","name":"กองทุนเปิด เอไอเอ คอนเวนชั่นนอล อโลเคชั่น ฟันด์","category":"กองทุนรวมแบบผสมเสี่ยงต่ำ (Conservative)","nav":11.5301,"navDate":"2026-08-20","chg1d":0.11,"ret1m":-0.43006,"ret3m":3.27652,"ret6m":4.13652,"ret1y":12.71311,"ret3y":5.02614,"ret5y":null,"sharpe1y":1.701,"maxdd1y":-2.329,"rank1y":5,"aum":180939900.71,"url":"https://www.finnomena.com/fund/AIA-TCA"},{"code":"AIA-TEQ","name":"กองทุนเปิด เอไอเอ ไทย อิควิตี้","category":"หุ้นไทยขนาดใหญ่","nav":14.1677,"navDate":"2026-08-20","chg1d":0.1,"ret1m":-1.4695,"ret3m":7.20761,"ret6m":11.53737,"ret1y":36.06043,"ret3y":5.88729,"ret5y":4.7421,"sharpe1y":1.773,"maxdd1y":-4.141,"rank1y":50,"aum":12645462936.78,"url":"https://www.finnomena.com/fund/AIA-TEQ"},{"code":"AIA-THDIS","name":"กองทุนเปิด เอไอเอ ไทย อิควิตี้ ดิสคัฟเวอรี่","category":"หุ้นไทยขนาดใหญ่","nav":13.9966,"navDate":"2026-08-20","chg1d":0.11,"ret1m":-1.54264,"ret3m":7.1264,"ret6m":11.17236,"ret1y":34.95512,"ret3y":5.04488,"ret5y":4.34049,"sharpe1y":1.751,"maxdd1y":-4.414,"rank1y":50,"aum":2211947614.1,"url":"https://www.finnomena.com/fund/AIA-THDIS"},{"code":"AIA-TMA","name":"กองทุนเปิด เอไอเอ โมเดอเรท อโลเคชั่น ฟันด์","category":"กองทุนรวมแบบผสมสมดุล (Moderate)","nav":11.5851,"navDate":"2026-08-20","chg1d":0.09,"ret1m":-0.91261,"ret3m":4.89759,"ret6m":7.16625,"ret1y":22.51327,"ret3y":5.74756,"ret5y":null,"sharpe1y":1.746,"maxdd1y":-3.176,"rank1y":5,"aum":1135043158.3,"url":"https://www.finnomena.com/fund/AIA-TMA"},{"code":"AIA-US500","name":"กองทุนเปิด เอไอเอ ยูเอส 500 อิควิตี้ ฟันด์","category":"หุ้นสหรัฐฯ","nav":17.3651,"navDate":"2026-08-19","chg1d":0.26,"ret1m":3.1096,"ret3m":4.2154,"ret6m":11.47409,"ret1y":16.91151,"ret3y":17.12132,"ret5y":9.11476,"sharpe1y":1.009,"maxdd1y":-5.995,"rank1y":50,"aum":6045300876.72,"url":"https://www.finnomena.com/fund/AIA-US500"}]};/*FUNDS_DATA_END*/
+/*FUNDS_DATA_START*/const FUNDS={"asOf":"2026-08-21","fetchedAt":"2026-08-22T03:03:58.369Z","source":"Finnomena","count":22,"items":[{"code":"AIA-DFI","name":"กองทุนเปิด เอไอเอ ไดเวอร์ซิไฟด์ ฟิกซ์ อินคัม ฟันด์","category":"ตราสารหนี้ทั่วโลก แบบป้องกันความเสี่ยงอัตราแลกเปลี่ยนตามดุลยพินิจของผู้จัดการกองทุน","nav":8.4965,"navDate":"2026-08-20","chg1d":0.25,"ret1m":-0.83334,"ret3m":-0.38222,"ret6m":-3.10643,"ret1y":-1.88572,"ret3y":1.19804,"ret5y":-4.07942,"sharpe1y":-0.708,"maxdd1y":-3.592,"rank1y":95,"aum":285668077.63,"url":"https://www.finnomena.com/fund/AIA-DFI"},{"code":"AIA-ES50","name":"กองทุนเปิด เอไอเอ เอ็นแฮนซ์ เซท 50","category":"หุ้นไทยขนาดใหญ่","nav":14.5555,"navDate":"2026-08-21","chg1d":0.37,"ret1m":-1.44293,"ret3m":7.2181,"ret6m":11.69988,"ret1y":36.74069,"ret3y":7.04303,"ret5y":5.56912,"sharpe1y":1.829,"maxdd1y":-4.049,"rank1y":50,"aum":17219922923.91,"url":"https://www.finnomena.com/fund/AIA-ES50"},{"code":"AIA-GAA","name":"กองทุนเปิด เอไอเอ โกลบอล แอกเกรสซีฟ อโลเคชั่น ฟันด์","category":"กองทุนรวมแบบผสมลงทุนต่างประเทศ","nav":13.5455,"navDate":"2026-08-20","chg1d":-0.32,"ret1m":3.45288,"ret3m":5.94092,"ret6m":6.74069,"ret1y":13.58148,"ret3y":12.06598,"ret5y":3.10428,"sharpe1y":0.967,"maxdd1y":-7.034,"rank1y":25,"aum":18279183961.96,"url":"https://www.finnomena.com/fund/AIA-GAA"},{"code":"AIA-GAA-UH","name":"กองทุนเปิด AIA Global Aggressive Allocation Fund - Unhedged","category":"กองทุนรวมแบบผสมลงทุนต่างประเทศ","nav":11.5188,"navDate":"2026-08-20","chg1d":-0.87,"ret1m":1.42378,"ret3m":7.07991,"ret6m":13.2347,"ret1y":null,"ret3y":null,"ret5y":null,"sharpe1y":null,"maxdd1y":null,"rank1y":null,"aum":3193731802.69,"url":"https://www.finnomena.com/fund/AIA-GAA-UH"},{"code":"AIA-GAIF","name":"กองทุนเปิด เอไอเอ โกลบอล แอคทีฟ อินคัม ฟันด์","category":"กองทุนรวมแบบผสมลงทุนต่างประเทศ","nav":11.4729,"navDate":"2026-08-20","chg1d":-0.88,"ret1m":-1.41693,"ret3m":2.05935,"ret6m":10.78077,"ret1y":13.48857,"ret3y":null,"ret5y":null,"sharpe1y":1.397,"maxdd1y":-2.541,"rank1y":50,"aum":5231781557.04,"url":"https://www.finnomena.com/fund/AIA-GAIF"},{"code":"AIA-GCA","name":"กองทุนเปิด เอไอเอ โกลบอล คอนเวนชั่นนอล อโลเคชั่น ฟันด์","category":"กองทุนรวมแบบผสมลงทุนต่างประเทศ","nav":9.7454,"navDate":"2026-08-20","chg1d":0.02,"ret1m":0.7912,"ret3m":1.72545,"ret6m":0.00616,"ret1y":3.55219,"ret3y":4.96943,"ret5y":-1.62365,"sharpe1y":0.383,"maxdd1y":-3.919,"rank1y":95,"aum":420811350.93,"url":"https://www.finnomena.com/fund/AIA-GCA"},{"code":"AIA-GEQ","name":"กองทุนเปิด เอไอเอ โกลบอล อิควิตี้ ฟันด์","category":"หุ้นทั่วโลก","nav":12.0323,"navDate":"2026-08-20","chg1d":-0.41,"ret1m":3.20713,"ret3m":4.79272,"ret6m":7.7854,"ret1y":15.91811,"ret3y":13.42592,"ret5y":2.40197,"sharpe1y":1.064,"maxdd1y":-6.871,"rank1y":50,"aum":9975715148.35,"url":"https://www.finnomena.com/fund/AIA-GEQ"},{"code":"AIA-GMA","name":"กองทุนเปิด เอไอเอ โกลบอล โมเดอเรท อโลเคชั่น ฟันด์","category":"กองทุนรวมแบบผสมลงทุนต่างประเทศ","nav":11.5029,"navDate":"2026-08-20","chg1d":-0.15,"ret1m":2.13452,"ret3m":3.86366,"ret6m":3.40987,"ret1y":8.54045,"ret3y":8.50126,"ret5y":0.7456,"sharpe1y":0.789,"maxdd1y":-5.367,"rank1y":75,"aum":2719698099.77,"url":"https://www.finnomena.com/fund/AIA-GMA"},{"code":"AIA-GMA-UH","name":"กองทุนเปิด AIA Global Moderate Allocation Fund - Unhedged","category":"กองทุนรวมแบบผสมลงทุนต่างประเทศ","nav":11.0858,"navDate":"2026-08-20","chg1d":-0.7,"ret1m":0.17983,"ret3m":5.13049,"ret6m":9.75714,"ret1y":null,"ret3y":null,"ret5y":null,"sharpe1y":null,"maxdd1y":null,"rank1y":null,"aum":252673132.34,"url":"https://www.finnomena.com/fund/AIA-GMA-UH"},{"code":"AIA-GMSH","name":"กองทุนเปิด AIA Global Moderate Strategic Allocation Fund","category":"กองทุนรวมแบบผสมลงทุนต่างประเทศ","nav":10.6887,"navDate":"2026-08-20","chg1d":-0.22,"ret1m":1.97487,"ret3m":3.09516,"ret6m":4.38693,"ret1y":null,"ret3y":null,"ret5y":null,"sharpe1y":null,"maxdd1y":null,"rank1y":null,"aum":644745257.62,"url":"https://www.finnomena.com/fund/AIA-GMSH"},{"code":"AIA-IAA","name":"กองทุนเปิด เอไอเอ คอมบายด์ แอกเกรสซีฟ อโลเคชั่น ฟันด์","category":"กองทุนรวมแบบผสมเชิงรุก (Aggressive)","nav":12.3118,"navDate":"2026-08-20","chg1d":-0.2,"ret1m":1.85732,"ret3m":6.2507,"ret6m":8.11585,"ret1y":18.63022,"ret3y":9.86491,"ret5y":null,"sharpe1y":1.597,"maxdd1y":-6.028,"rank1y":75,"aum":11290113027.71,"url":"https://www.finnomena.com/fund/AIA-IAA"},{"code":"AIA-IC","name":"กองทุนเปิด เอไอเอ อินคัม ฟันด์","category":"ตราสารหนี้ระยะยาว","nav":11.5677,"navDate":"2026-08-21","chg1d":-0.01,"ret1m":0.10384,"ret3m":1.32351,"ret6m":0.79555,"ret1y":1.34038,"ret3y":3.83415,"ret5y":2.41592,"sharpe1y":0.393,"maxdd1y":-1.191,"rank1y":5,"aum":10494682813.89,"url":"https://www.finnomena.com/fund/AIA-IC"},{"code":"AIA-ICA","name":"กองทุนเปิด เอไอเอ คอมบายด์ คอนเวนชั่นนอล อโลเคชั่น ฟันด์","category":"กองทุนรวมแบบผสมเสี่ยงต่ำ (Conservative)","nav":11.7916,"navDate":"2026-08-20","chg1d":0.03,"ret1m":0.73985,"ret3m":3.33266,"ret6m":3.48774,"ret1y":8.36772,"ret3y":6.22132,"ret5y":null,"sharpe1y":1.488,"maxdd1y":-3.362,"rank1y":25,"aum":555175395.61,"url":"https://www.finnomena.com/fund/AIA-ICA"},{"code":"AIA-IMA","name":"กองทุนเปิด เอไอเอ คอมบายด์ โมเดอเรท อโลเคชั่น ฟันด์","category":"กองทุนรวมแบบผสมสมดุล (Moderate)","nav":12.0592,"navDate":"2026-08-20","chg1d":-0.1,"ret1m":1.2961,"ret3m":4.80337,"ret6m":5.70086,"ret1y":12.92337,"ret3y":7.99655,"ret5y":null,"sharpe1y":1.522,"maxdd1y":-4.769,"rank1y":50,"aum":4979111247.52,"url":"https://www.finnomena.com/fund/AIA-IMA"},{"code":"AIA-SEL","name":"กองทุนเปิด เอไอเอ โกลบอล ซีเล็ค อิควิตี้ ฟันด์","category":"หุ้นทั่วโลก - ป้องกันความเสี่ยงอัตราแลกเปลี่ยนเต็มที่","nav":14.06,"navDate":"2026-08-20","chg1d":0.11,"ret1m":3.05878,"ret3m":4.3344,"ret6m":3.86349,"ret1y":8.89517,"ret3y":null,"ret5y":null,"sharpe1y":0.377,"maxdd1y":-10.101,"rank1y":50,"aum":3849511808.02,"url":"https://www.finnomena.com/fund/AIA-SEL"},{"code":"AIA-ST","name":"กองทุนเปิด เอไอเอ ตราสารหนี้ระยะสั้น","category":"ตราสารหนี้ระยะสั้น","nav":10.7852,"navDate":"2026-08-21","chg1d":0,"ret1m":0.04545,"ret3m":0.22582,"ret6m":0.45359,"ret1y":1.09387,"ret3y":1.84004,"ret5y":1.44731,"sharpe1y":0.862,"maxdd1y":null,"rank1y":50,"aum":3023284219.53,"url":"https://www.finnomena.com/fund/AIA-ST"},{"code":"AIA-TAA","name":"กองทุนเปิด เอไอเอ แอกเกรสซีฟ อโลเคชั่น ฟันด์","category":"กองทุนรวมแบบผสมเชิงรุก (Aggressive)","nav":11.5025,"navDate":"2026-08-21","chg1d":0.33,"ret1m":-1.32792,"ret3m":6.69134,"ret6m":10.54463,"ret1y":33.01532,"ret3y":5.96498,"ret5y":null,"sharpe1y":1.772,"maxdd1y":-3.954,"rank1y":25,"aum":1997217715.1,"url":"https://www.finnomena.com/fund/AIA-TAA"},{"code":"AIA-TCA","name":"กองทุนเปิด เอไอเอ คอนเวนชั่นนอล อโลเคชั่น ฟันด์","category":"กองทุนรวมแบบผสมเสี่ยงต่ำ (Conservative)","nav":11.5431,"navDate":"2026-08-21","chg1d":0.11,"ret1m":-0.51367,"ret3m":3.318,"ret6m":4.25394,"ret1y":12.91746,"ret3y":5.00724,"ret5y":null,"sharpe1y":1.701,"maxdd1y":-2.329,"rank1y":5,"aum":181374840.77,"url":"https://www.finnomena.com/fund/AIA-TCA"},{"code":"AIA-TEQ","name":"กองทุนเปิด เอไอเอ ไทย อิควิตี้","category":"หุ้นไทยขนาดใหญ่","nav":14.219,"navDate":"2026-08-21","chg1d":0.36,"ret1m":-1.41031,"ret3m":7.46244,"ret6m":11.94124,"ret1y":36.40506,"ret3y":5.84757,"ret5y":4.81785,"sharpe1y":1.773,"maxdd1y":-4.141,"rank1y":50,"aum":12688545421.48,"url":"https://www.finnomena.com/fund/AIA-TEQ"},{"code":"AIA-THDIS","name":"กองทุนเปิด เอไอเอ ไทย อิควิตี้ ดิสคัฟเวอรี่","category":"หุ้นไทยขนาดใหญ่","nav":14.0458,"navDate":"2026-08-21","chg1d":0.35,"ret1m":-1.4952,"ret3m":7.36245,"ret6m":11.56315,"ret1y":35.29644,"ret3y":5.00372,"ret5y":4.41374,"sharpe1y":1.751,"maxdd1y":-4.414,"rank1y":50,"aum":2219324353.86,"url":"https://www.finnomena.com/fund/AIA-THDIS"},{"code":"AIA-TMA","name":"กองทุนเปิด เอไอเอ โมเดอเรท อโลเคชั่น ฟันด์","category":"กองทุนรวมแบบผสมสมดุล (Moderate)","nav":11.611,"navDate":"2026-08-21","chg1d":0.22,"ret1m":-0.92496,"ret3m":5.0465,"ret6m":7.40583,"ret1y":22.78846,"ret3y":5.71851,"ret5y":null,"sharpe1y":1.746,"maxdd1y":-3.176,"rank1y":5,"aum":1137723081.86,"url":"https://www.finnomena.com/fund/AIA-TMA"},{"code":"AIA-US500","name":"กองทุนเปิด เอไอเอ ยูเอส 500 อิควิตี้ ฟันด์","category":"หุ้นสหรัฐฯ","nav":17.2198,"navDate":"2026-08-20","chg1d":-0.84,"ret1m":2.37754,"ret3m":2.24867,"ret6m":9.90146,"ret1y":16.36651,"ret3y":16.79374,"ret5y":8.76042,"sharpe1y":1.009,"maxdd1y":-5.995,"rank1y":50,"aum":5994607766.38,"url":"https://www.finnomena.com/fund/AIA-US500"}]};/*FUNDS_DATA_END*/
 function renderFunds(){
   const box=document.getElementById('fundsBox'); if(!box) return;
   const asOfEl=document.getElementById('fundsAsOf'), sumEl=document.getElementById('fundsSummary');
@@ -1283,12 +1341,268 @@ function renderFunds(){
   box.innerHTML='<table style="min-width:780px"><thead><tr>'+
     '<th style="text-align:left">กองทุน</th><th style="text-align:left">หมวด</th><th>NAV</th><th>1 วัน</th><th>1 ด.</th><th>3 ด.</th><th>6 ด.</th><th>1 ปี</th><th>3 ปี</th><th>5 ปี</th></tr></thead><tbody>'+
     items.map(function(f){ return '<tr>'+
-      '<td style="text-align:left"><a href="'+f.url+'" target="_blank" rel="noopener" style="font-weight:700;color:var(--red);text-decoration:none">'+f.code+' ↗</a><div class="psub" style="max-width:230px;white-space:normal">'+(f.name||'')+'</div></td>'+
+      '<td style="text-align:left"><a href="'+f.url+'" target="_blank" rel="noopener" style="font-weight:700;color:var(--red);text-decoration:none">'+f.code+' ↗</a>'+fundRiskHtml(f.code)+'<div class="psub" style="max-width:250px;white-space:normal">'+(f.name||'')+'</div>'+fundDocsHtml(f.code)+'</td>'+
       '<td style="text-align:left"><span class="psub" style="white-space:normal;max-width:160px;display:inline-block">'+(f.category||'–')+'</span></td>'+
       '<td class="num">'+(f.nav==null?'–':Number(f.nav).toLocaleString('en-US',{minimumFractionDigits:4,maximumFractionDigits:4}))+'</td>'+
       '<td class="num">'+pct(f.chg1d)+'</td><td class="num">'+pct(f.ret1m)+'</td><td class="num">'+pct(f.ret3m)+'</td>'+
       '<td class="num">'+pct(f.ret6m)+'</td><td class="num">'+pct(f.ret1y)+'</td><td class="num">'+pct(f.ret3y)+'</td><td class="num">'+pct(f.ret5y)+'</td>'+
     '</tr>'; }).join('')+'</tbody></table>';
+}
+
+
+/* ================================================================================
+   เพิ่ม 21 ส.ค. 2569 (v14)
+   (1) ลิงก์โบรชัวร์ออนไลน์รายผลิตภัณฑ์
+   (2) ลิงก์ Fact Sheet / หนังสือชี้ชวนรายกองทุน (AIAIM)
+   (3) แบบประกัน + หน้าสรุป AIA Lifetime Income 9/99 (Par)
+   ที่มา: โบรชัวร์ = AIA_Brochure_Links_20260730.csv (ตรวจลิงก์ครบ 88 รายการ = HTTP 200 application/pdf)
+          กองทุน  = aiaim.co.th JSON สาธารณะ (fundList.json / fundDetail.json)
+          9/99    = โบรชัวร์ SU0215472-06/2026 + ตารางคอมมิชชั่น 23 ก.ค. 2569 หน้า COMMISSION | SAVING
+   ================================================================================ */
+
+/* ---------- (1) ลิงก์โบรชัวร์รายผลิตภัณฑ์ ---------- */
+const PLINK = {"20pay_life":{"br":"https://www.aia.co.th/content/dam/th-wise/images/th/our-products/si_85_20-pay-life-non-par/aia-20-pay-life-non-par-20220701.pdf","ex":"https://www.aia.co.th/content/dam/th-wise/images/th/our-products/si_85_20-pay-life-non-par/AIA_20PayLifeNonPar_example_benefit.pdf"},"10pay_life":{"br":"https://www.aia.co.th/content/dam/th-wise/images/th/our-products/si_84_aia-10-15-pay-life-non-par/aia-10-15-pay-life-non-par-20220701.pdf"},"15pay_life":{"br":"https://www.aia.co.th/content/dam/th-wise/images/th/our-products/si_84_aia-10-15-pay-life-non-par/aia-10-15-pay-life-non-par-20220701.pdf"},"paylife_plus":{"br":"https://www.aia.co.th/content/dam/th-wise/images/th/our-products/si_90_aia-pay-life-plus-non-par/aia-pay-life-plus-non-par-20220701.pdf","ex":"https://www.aia.co.th/content/dam/th-wise/images/th/our-products/key-selling-point/AIA%20PAY%20LIFE%20PLUS%20(NON%20PAR)_example_benefit.pdf"},"legacy_prestige_plus":{"br":"https://www.aia.co.th/content/dam/th-wise/images/th/our-products/prestige/aia-legacy-prestige-new/ebrochure-website-aia-legacy-prestige-plus-new-10feb2025.pdf"},"legacy_prestige":{"br":"https://www.aia.co.th/content/dam/th-wise/images/th/our-products/prestige/aia-legacy-prestige-new/ebrochure-website-aia-legacy-prestige-new-10feb2025.pdf"},"legacy_prestige_protection":{"br":"https://www.aia.co.th/content/dam/th-wise/images/th/our-products/prestige/aia-legacy-prestige-new/ebrochure-website-aia-legacy-prestige-protection-new-10feb2025.pdf"},"ci_supercare":{"br":"https://www.aia.co.th/content/dam/th-wise/images/th/our-products/si_86_aia-ci-supercare-10-99-non-par/aia-ci-super-care-20220701.pdf","br2":"https://www.aia.co.th/content/dam/th-wise/images/th/our-products/si_87_aia-ci-supercare-20-99-non-par/aia-ci-super-care-20220701.pdf","br2label":"โบรชัวร์ 20/99"},"ci_supercare_prestige":{"br":"https://www.aia.co.th/content/dam/th-wise/images/th/our-products/si_102_prestige/si_103_aia-ci-supercare-prestige/aia-ci-supercare-prestige-brochure.pdf"},"ci_procare":{"br":"https://www.aia.co.th/content/dam/th-wise/docs/our-product/aia-ci-procare-brochure.pdf","ex":"https://www.aia.co.th/content/dam/th-wise/images/th/our-products/critical-illness-protection/aia-ci-procare/AIA_CI_ProCare_example_benefit.pdf"},"endowment_1525":{"br":"https://www.aia.co.th/content/dam/th-wise/images/th/our-products/si_114_aia-endowment-15-pay-25-non-par/AIA%20Endowment%2015%2025%20Non%20Par_Brochure.pdf"},"excellent":{"br":"https://www.aia.co.th/content/dam/th-wise/images/th/our-products/si_115_aia-ecellent-non-par/aia-excellent-non-par-20220701.pdf"},"annuity_fix":{"br":"https://www.aia.co.th/content/dam/th-wise/images/th/our-products/si_154_aia-annuity-fix/aia-annuity-fix-brochure.pdf"},"annuity_sure":{"br":"https://www.aia.co.th/content/dam/th-wise/docs/our-product/aia-annuity-sure/aia-annuity-sure-brochure-26102023.pdf"},"smart_wealth":{"br":"https://www.aia.co.th/content/dam/th-wise/forms/th/si_119_aia-link-sp-smart-wealth-unit-linked/aia_smart_wealth.pdf"},"smart_select":{"br":"https://www.aia.co.th/content/dam/th-wise/images/th/our-products/key-selling-point/AIA%20SMART%20SELECT_(UnitLinked).pdf"},"issara_plus":{"br":"https://www.aia.co.th/content/dam/th-wise/images/th/our-products/si_117_aia-issara-plus-unit-linked/AIA_Issara_Plus_(Unit%20Linked)_28122022.pdf"},"wealth_max":{"br":"https://www.aia.co.th/content/dam/th-wise/docs/our-product/Brochure-AIAWealthMax.pdf"},"infinite_wealth_prestige":{"br":"https://www.aia.co.th/content/dam/th-wise/images/th/our-products/key-selling-point/AIA%20INFINITE%20WEALTH%20PRESTIGE%20(UNIT%20LINKED).pdf"},"elite_income_prestige":{"br":"https://www.aia.co.th/content/dam/th-wise/docs/our-product/Brochure-AIA-Elite-Income-Prestige-Unit-Linked.pdf"},"health_happy":{"br":"https://www.aia.co.th/content/dam/th-wise/images/th/our-products/si_156_aia-healthy-happy/Brochure%20AIA%20Health%20Happy_Final_27Dec2022_website.pdf","ex":"https://www.aia.co.th/content/dam/th-wise/images/th/our-products/si_156_aia-healthy-happy/AIA_Health_Happy_example_benefit.pdf"},"health_saver":{"br":"https://www.aia.co.th/content/dam/th-wise/docs/our-product/hsv/AIA_Health%20Saver_Brochure_Final%20Version_for%20website.pdf","ex":"https://www.aia.co.th/content/dam/th-wise/docs/our-product/hsv/AIA_Health_Saver_example_benefit.pdf"},"health_starter":{"br":"https://www.aia.co.th/content/dam/th-wise/images/th/our-products/health/health-starter/AIA-Health-Starter-brochure.pdf"},"infinite_care":{"br":"https://www.aia.co.th/content/dam/th-wise/images/th/our-products/si_98_aia-infinite-care/Brochure%20AIA%20Infinite%20Care%20(new%20standard)_Final_27Dec2022_website.pdf"},"ci_plus":{"br":"https://www.aia.co.th/content/dam/th-wise/images/th/our-products/health/aia-ci-plus/aia-ci-plus-brochure.pdf"},"multipay_ci_plus":{"br":"https://www.aia.co.th/content/dam/th-wise/docs/our-product/aia-multipay-ci-plus/brochure-aia-multi-pay-ci-plus-26102023.pdf","ex":"https://www.aia.co.th/content/dam/th-wise/docs/our-product/aia-multipay-ci-plus/AIA_MPCI_PLus_example_benefit.pdf"},"ci_hero":{"br":"https://www.aia.co.th/content/dam/th-wise/images/th/our-products/health/aia-ci-hero/AIA-Health-CI-Hero-brochure.pdf.coredownload.inline.pdf"},"ci_top_up":{"br":"https://www.aia.co.th/content/dam/th-wise/images/th/our-products/si_66_critical-illness-protection/si_71_aia-ci-top-up/aia-ci-top-up.pdf"},"lifetime_income_999":{"br":"https://www.aia.co.th/content/dam/th-wise/images/th/our-products/aia-lifetime-income/Brochure-AIA-Lifetime-Income_9-99(Par)web.pdf"},"hs_new":{"note":"ไม่มีโบรชัวร์บนเว็บไซต์ AIA (ใช้ไฟล์ในโฟลเดอร์ AIA_Insurance_Claude)"}};
+
+function docLinksHtml(id, compact){
+  const L = PLINK[id];
+  if(!L || !L.br) return '';
+  const a = (href,label,cls)=>'<a class="'+cls+'" href="'+href+'" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">'+label+'</a>';
+  if(compact) return a(L.br,'\u{1F4C4} โบรชัวร์','b-doc');
+  return '<div class="doclinks">'
+    + a(L.br, L.br2 ? '\u{1F4C4} โบรชัวร์ 10/99' : '\u{1F4C4} โบรชัวร์ (PDF)','doclink')
+    + (L.br2 ? a(L.br2,'\u{1F4C4} '+L.br2label,'doclink') : '')
+    + (L.ex  ? a(L.ex, '\u{1F4CA} ตัวอย่างผลประโยชน์','doclink') : '')
+    + '</div>';
+}
+function docNoteHtml(id){
+  const L = PLINK[id];
+  return (L && !L.br && L.note) ? '<div class="psub" style="margin-top:6px">\u{1F4C4} '+L.note+'</div>' : '';
+}
+
+/* ---------- (2) ลิงก์กองทุน AIAIM ---------- */
+const FUNDLINK = {"AIA-ES50":{"page":"https://www.aiaim.co.th/th/fund/fund-detail.html?fid=AIA-ES50","fact":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/factsheet_ES50.pdf","pros":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/prospectus_QA_ES50.pdf","risk":6},"AIA-TEQ":{"page":"https://www.aiaim.co.th/th/fund/fund-detail.html?fid=AIA-TEQ","fact":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/factsheet_TEQ.pdf","pros":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/prospectus_QA_TEQ.pdf","risk":6},"AIA-THDIS":{"page":"https://www.aiaim.co.th/th/fund/fund-detail.html?fid=AIA-THDIS","fact":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/factsheet_THDIS.pdf","pros":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/prospectus_QA_THDIS.pdf","risk":6},"AIA-IC":{"page":"https://www.aiaim.co.th/th/fund/fund-detail.html?fid=AIA-IC","fact":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/factsheet_IC.pdf","pros":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/prospectus_QA_IC.pdf","risk":4},"AIA-ST":{"page":"https://www.aiaim.co.th/th/fund/fund-detail.html?fid=AIA-ST","fact":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/factsheet_ST.pdf","pros":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/prospectus_QA_ST.pdf","risk":4},"AIA-GCA":{"page":"https://www.aiaim.co.th/th/fund/fund-detail.html?fid=AIA-GCA","fact":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/factsheet_GCA.pdf","pros":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/prospectus_QA_GCA.pdf","risk":5},"AIA-GMA":{"page":"https://www.aiaim.co.th/th/fund/fund-detail.html?fid=AIA-GMA","fact":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/factsheet_GMA.pdf","pros":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/prospectus_QA_GMA.pdf","risk":5},"AIA-GAA":{"page":"https://www.aiaim.co.th/th/fund/fund-detail.html?fid=AIA-GAA","fact":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/factsheet_GAA.pdf","pros":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/prospectus_QA_GAA.pdf","risk":6},"AIA-DFI":{"page":"https://www.aiaim.co.th/th/fund/fund-detail.html?fid=AIA-DFI","fact":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/factsheet_DFI.pdf","pros":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/prospectus_QA_DFI.pdf","risk":4},"AIA-US500":{"page":"https://www.aiaim.co.th/th/fund/fund-detail.html?fid=AIA-US500","fact":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/factsheet_US500.pdf","pros":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/prospectus_QA_US500.pdf","risk":6},"AIA-GEQ":{"page":"https://www.aiaim.co.th/th/fund/fund-detail.html?fid=AIA-GEQ","fact":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/factsheet_GEQ.pdf","pros":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/prospectus_QA_GEQ.pdf","risk":6},"AIA-ICA":{"page":"https://www.aiaim.co.th/th/fund/fund-detail.html?fid=AIA-ICA","fact":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/factsheet_ICA.pdf","pros":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/prospectus_QA_ICA.pdf","risk":5},"AIA-IAA":{"page":"https://www.aiaim.co.th/th/fund/fund-detail.html?fid=AIA-IAA","fact":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/factsheet_IAA.pdf","pros":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/prospectus_QA_IAA.pdf","risk":6},"AIA-IMA":{"page":"https://www.aiaim.co.th/th/fund/fund-detail.html?fid=AIA-IMA","fact":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/factsheet_IMA.pdf","pros":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/prospectus_QA_IMA.pdf","risk":5},"AIA-TCA":{"page":"https://www.aiaim.co.th/th/fund/fund-detail.html?fid=AIA-TCA","fact":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/factsheet_TCA.pdf","pros":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/prospectus_QA_TCA.pdf","risk":5},"AIA-TAA":{"page":"https://www.aiaim.co.th/th/fund/fund-detail.html?fid=AIA-TAA","fact":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/factsheet_TAA.pdf","pros":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/prospectus_QA_TAA.pdf","risk":6},"AIA-TMA":{"page":"https://www.aiaim.co.th/th/fund/fund-detail.html?fid=AIA-TMA","fact":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/factsheet_TMA.pdf","pros":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/prospectus_QA_TMA.pdf","risk":5},"AIA-SEL":{"page":"https://www.aiaim.co.th/th/fund/fund-detail.html?fid=AIA-SEL","fact":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/factsheet_SEL.pdf","pros":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/prospectus_QA_SEL.pdf","risk":6},"AIA-GAIF":{"page":"https://www.aiaim.co.th/th/fund/fund-detail.html?fid=AIA-GAIF","fact":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/factsheet_GAIF.pdf","pros":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/prospectus_QA_GAIF.pdf","risk":5},"AIA-GAA-UH":{"page":"https://www.aiaim.co.th/th/fund/fund-detail.html?fid=AIA-GAA-UH","fact":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/factsheet_GAA-UH.pdf","pros":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/prospectus_QA_GAA-UH.pdf","risk":6},"AIA-GMA-UH":{"page":"https://www.aiaim.co.th/th/fund/fund-detail.html?fid=AIA-GMA-UH","fact":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/factsheet_GMA-UH.pdf","pros":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/prospectus_QA_GMA-UH.pdf","risk":5},"AIA-GMSH":{"page":"https://www.aiaim.co.th/th/fund/fund-detail.html?fid=AIA-GMSH","fact":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/factsheet_GMSH.pdf","pros":"https://www.aiaim.co.th/content/dam/th-aiaim/pdf/prospectus_QA_GMSH.pdf","risk":5}};
+
+function fundDocsHtml(code){
+  const L = FUNDLINK[code];
+  if(!L) return '<span class="psub">–</span>';
+  const a=(h,t)=>h?'<a class="doclink sm" href="'+h+'" target="_blank" rel="noopener noreferrer">'+t+'</a>':'';
+  return '<div class="doclinks sm">'+a(L.fact,'\u{1F4C4} Fact Sheet')+a(L.pros,'\u{1F4D8} หนังสือชี้ชวน')+a(L.page,'\u{1F517} AIAIM')+'</div>';
+}
+function fundRiskHtml(code){
+  const L=FUNDLINK[code];
+  if(!L||L.risk==null) return '';
+  return '<span class="riskpill r'+L.risk+'" title="ระดับความเสี่ยงกองทุน '+L.risk+' จาก 8">ความเสี่ยง '+L.risk+'</span>';
+}
+
+/* ---------- (3) AIA Lifetime Income 9/99 (Par) ---------- */
+const LI999 = {
+  id:'lifetime_income_999',
+  minSA:100000,
+  payYears:9,
+  coverToAge:99,
+  /* โบรชัวร์: เงินจ่ายคืนรายงวด ณ สิ้นปีกรมธรรม์ (% ของจำนวนเงินเอาประกันภัย) */
+  cashbackBands:[ {f:2,t:10,pct:1}, {f:11,t:20,pct:2}, {f:21,t:'age98',pct:3} ],
+  maturityPct:900,                                    /* ครบกำหนดสัญญา ณ อายุ 99 ปี */
+  deathRamp:[100,200,300,400,500,600,700,800,900],    /* ปีกรมธรรม์ที่ 1..9 จากนั้นคงที่ 900% */
+  refRate:839.00,
+  refRateNote:'ตัวอย่างในโบรชัวร์ หญิง อายุ 35 ปี เบี้ย 100,000 บาท/ปี ได้ทุนประกัน 119,190 บาท (= 839.00 ต่อทุน 1,000)',
+  brochureExample:{ gender:'F', age:35, prem:100000, sa:119190, totalPrem:900000, illusReturn:5.2,
+    callouts:[ 'เวนคืนกรมธรรม์ตอนอายุ 80 ปี ≈ 2.4 ล้านบาท',
+               'เสียชีวิตตอนอายุ 80 ปี ≈ 3.5 ล้านบาท',
+               'อยู่ครบกำหนดสัญญา รับผลประโยชน์รวม ≈ 6.2 ล้านบาท' ] }
+};
+function li999CashbackPct(y, age){
+  const end98 = 98 - age;                    /* ปีกรมธรรม์สุดท้ายที่ยังได้เงินจ่ายคืนรายงวด */
+  for(const b of LI999.cashbackBands){
+    const t = (b.t==='age98') ? end98 : b.t;
+    if(y >= b.f && y <= t) return b.pct;
+  }
+  return 0;
+}
+function li999DeathPct(y){ const r=LI999.deathRamp; return y<=r.length ? r[y-1] : r[r.length-1]; }
+function li999Years(age){ return Math.max(1, 99 - age); }   /* ปีกรมธรรม์ที่ครบกำหนดสัญญา */
+
+/* ลงทะเบียนเข้าแคตตาล็อกหลัก เพื่อใช้ร่วมกับแท็บ "แผนของคุณ" และแท็บหลังบ้านได้ */
+(function(){
+  const p = {
+    id:'lifetime_income_999', cat:'saving',
+    th:'เอไอเอ ไลฟ์ไทม์ อินคัม 9/99 (มีเงินปันผล)', en:'AIA Lifetime Income 9/99 (Par)',
+    entry:'15 วัน – 65 ปี', minSA:100000, premiumModel:'manual', saInput:true, terms:['9pay'],
+    hl:['ชำระเบี้ยฯ เพียง 9 ปี คุ้มครองตลอดชีพถึงอายุ 99 ปี',
+        'การันตีเงินจ่ายคืนรายงวด สิ้นปีกรมธรรม์ที่ 2 เป็นต้นไป (1% → 2% → 3% ของทุนประกัน)',
+        'การันตีเงินครบกำหนดสัญญา ณ อายุ 99 ปี สูงสุด 900% ของจำนวนเงินเอาประกันภัย',
+        'โอกาสรับเงินปันผลรายงวด + เงินปันผลเมื่อสัญญาสิ้นสุด (Terminal Dividend) — ไม่รับรองการจ่าย',
+        'ตอบคำถามสุขภาพอย่างสั้น (SIO) เพียง 3 ข้อ กรณีไม่แนบสัญญาเพิ่มเติม',
+        'เบี้ยฯ ใช้ลดหย่อนภาษีเงินได้บุคคลธรรมดาได้สูงสุด 100,000 บาท']
+  };
+  DATA.catalog.push(p); byId[p.id] = p;
+  COVKIND[p.id] = 'life';
+
+  DATA.premiums[p.id] = { model:'manual', saInput:true,
+    note:'โบรชัวร์ไม่มีตารางอัตราเบี้ยเต็ม → กรอกเบี้ยจากใบเสนอขาย AIA' };
+
+  /* ตารางคอมมิชชั่น: Commission July 23, 2026 · หน้า COMMISSION | SAVING
+     เข้าเงื่อนไข = แนบ Rider >= 20% ของเบี้ยฯ แบบประกันภัยหลัก หรือ เบี้ยฯ สัญญาเพิ่มเติม >= 18,000 บาท/ปี */
+  DATA.commission[p.id] = {
+    dims:['rider','age'],
+    note:'เข้าเงื่อนไข = แนบ Rider ≥20% ของเบี้ยฯ สัญญาหลัก หรือเบี้ยฯ สัญญาเพิ่มเติม ≥18,000/ปี · ทุนขั้นต่ำ 100,000 บาท',
+    rules:[
+      {rider:'high', ageMin:0,  ageMax:55, years:[25,10,7,1,1,1,1,1,1]},
+      {rider:'high', ageMin:56, ageMax:60, years:[20, 8,5,1,1,1,1,1,1]},
+      {rider:'high', ageMin:61, ageMax:65, years:[10, 4,3,1,1,1,1,1,1]},
+      {rider:'low',  ageMin:0,  ageMax:55, years:[20, 8,5,1,1,1,1,1,1]},
+      {rider:'low',  ageMin:56, ageMax:60, years:[15, 6,4,1,1,1,1,1,1]},
+      {rider:'low',  ageMin:61, ageMax:65, years:[ 5, 3,2,1,1,1,1,1,1]}
+    ]
+  };
+})();
+
+/* ---------- หน้าสรุป 9/99 ---------- */
+function li999Sync(src){
+  /* ผูกทุนประกัน <-> เบี้ยรายปี ผ่านอัตราเบี้ยต่อทุน 1,000 */
+  const g=id=>document.getElementById(id);
+  const rate=(function(){ const v=parseFloat(unnum((g('l9Rate')||{}).value||'')); return (Number.isFinite(v)&&v>0)?v:LI999.refRate; })();
+  if(src==='prem'){
+    const pr=parseFloat(unnum(g('l9Prem').value))||0;
+    if(pr>0) g('l9SA').value = fmt(pr/rate*1000);
+  } else {
+    const sa=parseFloat(unnum(g('l9SA').value))||0;
+    if(sa>0) g('l9Prem').value = fmt(sa*rate/1000);
+  }
+  renderLi999();
+}
+function li999State(){
+  const g=id=>document.getElementById(id);
+  const c=customer();
+  const ageEl=g('l9Age'); let age=ageEl?parseInt(ageEl.value,10):NaN;
+  if(!Number.isFinite(age)) age = (c.age!=null?c.age:35);
+  const gender=(g('l9Gender')||{}).value || c.gender || 'F';
+  let rate=parseFloat(unnum((g('l9Rate')||{}).value||'')); if(!(Number.isFinite(rate)&&rate>0)) rate=LI999.refRate;
+  let sa=parseFloat(unnum((g('l9SA')||{}).value||'')); if(!(Number.isFinite(sa)&&sa>0)) sa=LI999.brochureExample.sa;
+  const rider=(g('l9Rider')||{}).value || 'high';
+  return {age,gender,rate,sa,rider,prem:sa*rate/1000};
+}
+function li999Schedule(s){
+  const N=li999Years(s.age), rows=[]; let cumPrem=0,cumRecv=0,be=null;
+  for(let y=1;y<=N;y++){
+    const a=s.age+y-1;
+    const annualPrem=(y<=LI999.payYears)?s.prem:0; cumPrem+=annualPrem;
+    let recvThis=li999CashbackPct(y,s.age)/100*s.sa;
+    const isMaturity=(y===N);
+    if(isMaturity) recvThis+=LI999.maturityPct/100*s.sa;
+    cumRecv+=recvThis;
+    /* กรณีเสียชีวิต จ่ายจำนวนที่มากกว่าระหว่าง %ทุน กับ 101% ของเบี้ยที่ชำระ − เงินคืนที่จ่ายแล้ว */
+    const death=Math.max(li999DeathPct(y)/100*s.sa, 1.01*cumPrem - (cumRecv - (isMaturity?LI999.maturityPct/100*s.sa:0)));
+    if(be==null && cumPrem>0 && cumRecv>=cumPrem) be=y;
+    rows.push({y,a,annualPrem,cumPrem,recvThis,cumRecv,death,isMaturity});
+  }
+  const last=rows[rows.length-1];
+  return {rows,N,cumPrem:last.cumPrem,cumRecv:last.cumRecv,breakeven:be};
+}
+function li999Irr(sch){
+  const cf=sch.rows.map(r=>r.recvThis-r.annualPrem);
+  const npv=r=>cf.reduce((s,v,i)=>s+v/Math.pow(1+r,i+1),0);
+  let lo=-0.5,hi=0.6;
+  if(npv(lo)*npv(hi)>0) return null;
+  for(let i=0;i<200;i++){ const m=(lo+hi)/2; if(npv(lo)*npv(m)<=0) hi=m; else { lo=m; } }
+  return (lo+hi)/2;
+}
+function li999CommRules(){ return DATA.commission['lifetime_income_999'].rules; }
+function li999CommYears(age,rider){
+  for(const r of li999CommRules()){ if(r.rider===rider && age>=r.ageMin && age<=r.ageMax) return r.years; }
+  return null;
+}
+function renderLi999(){
+  const box=document.getElementById('l9Body'); if(!box) return;
+  const s=li999State(), sch=li999Schedule(s), irr=li999Irr(sch);
+  const L=PLINK['lifetime_income_999']||{};
+  const ex=LI999.brochureExample;
+  const matAmt=LI999.maturityPct/100*s.sa;
+  const cbTotal=sch.cumRecv-matAmt;
+
+  const sum='<div class="sumrow">'+
+    '<div class="sumcard"><div class="k">เบี้ยประกันภัยรวมทั้งโครงการ (9 ปี)</div><div class="v">'+fmt(sch.cumPrem)+' <small>บาท</small></div></div>'+
+    '<div class="sumcard"><div class="k">เงินจ่ายคืนรายงวดสะสม (การันตี)</div><div class="v" style="color:#1a8a48">'+fmt(cbTotal)+' <small>บาท</small></div></div>'+
+    '<div class="sumcard"><div class="k">เงินครบกำหนดสัญญา อายุ 99 ปี (900%)</div><div class="v" style="color:#1a8a48">'+fmt(matAmt)+' <small>บาท</small></div></div>'+
+    '<div class="sumcard"><div class="k">ผลประโยชน์การันตีรวม ÷ เบี้ยที่ชำระ</div><div class="v">'+(sch.cumRecv/sch.cumPrem).toFixed(2)+'<small>x</small>'+(irr!=null?' <small style="color:var(--mut)">· IRR '+(irr*100).toFixed(2)+'%</small>':'')+'</div></div>'+
+  '</div>';
+
+  const end98=98-s.age;
+  const mech='<div class="l9grid">'+
+    '<div class="l9card"><h5>💸 เงินจ่ายคืนรายงวด (การันตี)</h5>'+
+      '<table class="bentbl" style="font-size:12.5px"><tr><th style="text-align:left">สิ้นปีกรมธรรม์ที่</th><th>% ของทุนประกัน</th><th>จำนวนเงินต่องวด</th></tr>'+
+      '<tr><td style="text-align:left">2 – 10</td><td class="num">1%</td><td class="num">'+fmt(s.sa*0.01)+'</td></tr>'+
+      '<tr><td style="text-align:left">11 – 20</td><td class="num">2%</td><td class="num">'+fmt(s.sa*0.02)+'</td></tr>'+
+      '<tr><td style="text-align:left">21 – '+end98+' <span class="psub">(ถึงอายุ 98 ปี)</span></td><td class="num">3%</td><td class="num">'+fmt(s.sa*0.03)+'</td></tr></table>'+
+      '<div class="psub" style="margin-top:6px">รวมเงินคืนรายงวดตลอดสัญญา = <b>'+(cbTotal/s.sa*100).toFixed(0)+'%</b> ของทุนประกัน = '+fmt(cbTotal)+' บาท</div></div>'+
+    '<div class="l9card"><h5>🎁 เงินครบกำหนดสัญญา</h5>'+
+      '<div class="l9big">900%</div>'+
+      '<div class="psub">ของจำนวนเงินเอาประกันภัย จ่าย ณ อายุ 99 ปี หากผู้เอาประกันภัยมีชีวิตอยู่จนครบกำหนดสัญญา<br>= <b>'+fmt(matAmt)+' บาท</b></div></div>'+
+    '<div class="l9card"><h5>🛡️ ผลประโยชน์กรณีเสียชีวิต</h5>'+
+      '<div class="psub" style="margin-bottom:6px">บริษัทจ่าย <b>จำนวนที่มากกว่า</b> ระหว่าง</div>'+
+      '<ol class="l9ol"><li>% ของทุนประกันตามปีกรมธรรม์ — ปีที่ 1 = 100% เพิ่มปีละ 100% จนถึง <b>900% ตั้งแต่ปีที่ 9</b></li>'+
+      '<li>เงินค่าเวนคืนกรมธรรม์</li>'+
+      '<li>101% ของเบี้ยประกันภัยหลักที่ชำระมาแล้ว หักเงินจ่ายคืนรายงวดที่จ่ายไปแล้ว</li></ol></div>'+
+    '<div class="l9card"><h5>📈 เงินปันผล (ไม่รับรองการจ่าย)</h5>'+
+      '<ul class="l9ul"><li><b>เงินปันผลรายงวด</b> — สิ้นปีกรมธรรม์ที่ 2 จนถึงสิ้นปีกรมธรรม์ถัดจากวันที่ผู้เอาประกันภัยมีอายุครบ 98 ปี</li>'+
+      '<li><b>Terminal Dividend</b> — เมื่อครบกำหนดสัญญา / เวนคืน / เสียชีวิต ตั้งแต่ปีกรมธรรม์ที่ 10 เป็นต้นไป</li>'+
+      '<li>พอร์ตลงทุนของกลุ่มผลิตภัณฑ์: ตราสารหนี้ <b>70%</b> · สินทรัพย์เชิงรุก <b>30%</b></li>'+
+      '<li>กรณีใช้เงินสำเร็จ (RPU) หรือแปลงเป็นการประกันภัยแบบขยายเวลา (ETI) จะไม่ได้รับเงินปันผล</li></ul></div>'+
+  '</div>';
+
+  const prem='<div class="l9card"><h5>🧮 กลไกคิดเบี้ยประกันภัย</h5>'+
+    '<div class="l9formula">เบี้ยรายปี = อัตราเบี้ยต่อทุน 1,000 บาท × (จำนวนเงินเอาประกันภัย ÷ 1,000)</div>'+
+    '<div class="l9formula">= '+s.rate.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})+' × ('+fmt(s.sa)+' ÷ 1,000) = <b>'+fmt(s.prem)+' บาท/ปี</b> · ชำระ 9 ปี = <b>'+fmt(s.prem*9)+' บาท</b></div>'+
+    '<div class="warn" style="margin-top:8px">⚠️ โบรชัวร์ 9/99 <b>ไม่มีตารางอัตราเบี้ยเต็มตามอายุ/เพศ</b> — ค่าตั้งต้น '+LI999.refRate.toFixed(2)+' มาจาก'+LI999.refRateNote+'<br>'+
+    'สำหรับอายุ/เพศอื่น โปรดใส่อัตราจากใบเสนอขาย/ระบบของ AIA แทน — เครื่องมือนี้ไม่ประมาณอัตราเบี้ยเอง</div></div>';
+
+  const tbl='<div class="l9card"><h5>📋 ตารางผลประโยชน์รายปี (เฉพาะส่วนการันตี — ไม่รวมเงินปันผล)</h5>'+
+    '<div style="max-height:380px;overflow:auto;border:1px solid var(--line);border-radius:10px">'+
+    '<table class="bentbl" style="font-size:12.5px">'+
+    '<tr><th>ปีที่</th><th>อายุ</th><th>เบี้ยรายปี</th><th>เบี้ยสะสม</th><th>เงินคืนปีนี้</th><th>เงินคืนสะสม</th><th>ผลประโยชน์เสียชีวิต</th></tr>'+
+    sch.rows.map(function(r){
+      const hl = r.isMaturity ? ' style="background:#fff7e6;font-weight:700"' : (sch.breakeven===r.y ? ' style="background:#eafaf0"' : '');
+      const mk = r.isMaturity ? ' 🎁' : (sch.breakeven===r.y ? ' 🎯' : '');
+      return '<tr'+hl+'><td style="text-align:center">'+r.y+mk+'</td><td style="text-align:center">'+r.a+'</td>'+
+        '<td class="num">'+(r.annualPrem?fmt(r.annualPrem):'–')+'</td><td class="num">'+fmt(r.cumPrem)+'</td>'+
+        '<td class="num">'+(r.recvThis?fmt(r.recvThis):'–')+'</td><td class="num" style="color:#1a8a48">'+fmt(r.cumRecv)+'</td>'+
+        '<td class="num">'+fmt(r.death)+'</td></tr>';
+    }).join('')+
+    '</table></div>'+
+    '<div class="psub" style="margin-top:6px">🎯 = จุดคุ้มทุน (เงินคืนสะสม ≥ เบี้ยสะสม)'+(sch.breakeven?' — ปีกรมธรรม์ที่ '+sch.breakeven+' (อายุ '+sch.rows[sch.breakeven-1].a+' ปี)':' — ไม่ถึงจุดคุ้มทุนก่อนครบสัญญา')+' · 🎁 = ครบกำหนดสัญญา</div></div>';
+
+  const bro='<div class="l9card"><h5>📘 ตัวอย่างอ้างอิงจากโบรชัวร์ AIA (SU0215472-06/2026)</h5>'+
+    '<div class="psub" style="margin-bottom:6px">เพศหญิง อายุ 35 ปี · เบี้ยฯ 100,000 บาท/ปี · จำนวนเงินเอาประกันภัย 119,190 บาท · เบี้ยรวมทั้งโครงการ 900,000 บาท · สมมติฐานผลตอบแทนการลงทุน '+ex.illusReturn+'% ต่อปี</div>'+
+    '<ul class="l9ul">'+ex.callouts.map(function(c){return '<li>'+c+'</li>';}).join('')+'</ul>'+
+    '<div class="psub">ตัวเลขข้างต้น<b>รวมเงินปันผลซึ่งไม่รับรองการจ่าย</b> — ตารางในเครื่องมือนี้แสดงเฉพาะส่วนการันตีเท่านั้น</div></div>';
+
+  const yrs=li999CommYears(s.age,s.rider);
+  const fycV=yrs?s.prem*yrs[0]/100:null;
+  const totV=yrs?s.prem*yrs.reduce(function(a,b){return a+b;},0)/100:null;
+  const rowsHtml=li999CommRules().map(function(r){
+    const on=(r.rider===s.rider && s.age>=r.ageMin && s.age<=r.ageMax);
+    return '<tr'+(on?' style="background:#fff3f5;font-weight:700"':'')+'><td style="text-align:left">'+(r.rider==='high'?'เข้าเงื่อนไข':'ไม่เข้าเงื่อนไข')+'</td>'+
+      '<td style="text-align:center">'+(r.ageMin===0?'15 วัน':r.ageMin)+' – '+r.ageMax+'</td>'+
+      r.years.map(function(v){return '<td class="num">'+v+'%</td>';}).join('')+
+      '<td class="num">'+r.years.reduce(function(a,b){return a+b;},0)+'%</td></tr>';
+  }).join('');
+  const comm='<div class="l9card agentonly"><h5>🔐 กลไกคิดคอมมิชชั่น (สำหรับตัวแทน)</h5>'+
+    '<div class="psub" style="margin-bottom:6px">ที่มา: ตารางคอมมิชชั่น AIA ฉบับ 23 กรกฎาคม 2569 · หน้า COMMISSION | SAVING · จำนวนเงินเอาประกันภัยขั้นต่ำ 100,000 บาท<br>'+
+      '<b>เข้าเงื่อนไข</b> = แนบ Rider ≥ 20% ของเบี้ยฯ ของแบบประกันภัยหลัก <b>หรือ</b> เบี้ยฯ ของสัญญาเพิ่มเติมขั้นต่ำ 18,000 บาท/ปี</div>'+
+    '<div class="l9formula">คอมมิชชั่นปีที่ n = เบี้ยประกันภัยรายปี × อัตราปีที่ n · จ่ายรวม 9 ปี (เท่ากับระยะเวลาชำระเบี้ย)</div>'+
+    '<div style="overflow-x:auto;margin-top:8px"><table class="bentbl" style="font-size:12px;min-width:660px">'+
+      '<tr><th style="text-align:left">เงื่อนไข</th><th>อายุรับประกัน</th>'+[1,2,3,4,5,6,7,8,9].map(function(n){return '<th>ปี '+n+'</th>';}).join('')+'<th>รวม</th></tr>'+
+      rowsHtml+'</table></div>'+
+    '<div class="sumrow" style="margin-top:10px">'+
+      '<div class="sumcard"><div class="k">เบี้ยรายปีที่ใช้คำนวณ</div><div class="v">'+fmt(s.prem)+' <small>บาท</small></div></div>'+
+      '<div class="sumcard"><div class="k">FYC (คอมมิชชั่นปีแรก)</div><div class="v" style="color:var(--red)">'+(fycV==null?'–':fmt(fycV))+' <small>บาท</small></div></div>'+
+      '<div class="sumcard"><div class="k">คอมมิชชั่นรวมทั้งสัญญา (9 ปี)</div><div class="v" style="color:var(--red)">'+(totV==null?'–':fmt(totV))+' <small>บาท</small></div></div>'+
+    '</div>'+
+    (yrs?'<div class="yrchips" style="margin-top:8px">'+yrs.map(function(pct,i){return '<span class="yrchip">ปี '+(i+1)+': <b>'+pct+'%</b> = '+fmt(s.prem*pct/100)+'</span>';}).join('')+'</div>'
+        :'<div class="warn" style="margin-top:8px">อายุนี้อยู่นอกช่วงรับประกัน (15 วัน – 65 ปี)</div>')+'</div>';
+
+  const links=L.br?'<div class="l9card"><h5>🔗 เอกสารประกอบ</h5>'+docLinksHtml('lifetime_income_999')+'</div>':'';
+  box.innerHTML = sum + mech + prem + tbl + bro + comm + links;
 }
 
 /* ================= HEALTH CHECK (การตรวจสุขภาพ) — Agent Guidebook ส.ค. 2025 ================= */
@@ -1350,7 +1664,7 @@ const HC = {
       {max:50000000,c:['MU, US ไทรอยด์, US เต้านม (หญิง>40)','MU, EXECG, US ไทรอยด์/ตับ/เต้านม (หญิง)','ME, MU, BP2, EXECG, US ไทรอยด์/ตับ/เต้านม (หญิง)']}
     ] },
   r4note:'สัญญาเพิ่มเติมสุขภาพ (ค่ารักษาพยาบาล/ค่าชดเชยรายวัน) — <b>ตอบคำถามสุขภาพเสมอ</b> การเรียกตรวจขึ้นกับ<b>วงเงินสัญญาหลักที่แนบ</b> (ใช้เกณฑ์ ① หรือ ②) · เพดานค่าห้อง/ผลประโยชน์แยกตามอายุ (MKT49-2024) · หากดัชนีมวลกาย BMI > 30 อาจต้องส่งใบแพทย์',
-  reg:{ '20pay_life':1,'10pay_life':1,'15pay_life':1,'paylife_plus':1,'endowment_1525':1,'excellent':1,
+  reg:{ 'lifetime_income_999':1,'20pay_life':1,'10pay_life':1,'15pay_life':1,'paylife_plus':1,'endowment_1525':1,'excellent':1,
     'annuity_fix':1,'annuity_sure':1,'smart_wealth':1,'smart_select':1,'issara_plus':1,'wealth_max':1,'elite_income_prestige':1,
     'legacy_prestige':2,'legacy_prestige_plus':2,'legacy_prestige_protection':2,'infinite_wealth_prestige':2,'ci_supercare_prestige':2,
     'ci_supercare':3,'ci_procare':3,'ci_plus':3,'multipay_ci_plus':3,'ci_top_up':3,
@@ -1477,7 +1791,7 @@ function renderHealth(){
 
 // init
 document.getElementById('agentName').value = lGet('aia_agent_name')||'';
-renderChips(); renderGrid(); renderQuote(); applyMode(); loadTax(); renderTax(); renderFunds(); renderHealth();
+renderChips(); renderGrid(); renderQuote(); applyMode(); loadTax(); renderTax(); renderFunds(); renderHealth(); renderLi999();
 </script>
 </body>
 </html>
