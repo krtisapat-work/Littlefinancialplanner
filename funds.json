@@ -1,6 +1,6 @@
 {
  "asOf": "2026-09-08",
- "fetchedAt": "2026-09-09T05:46:40.197Z",
+ "fetchedAt": "2026-09-10T05:41:22.696Z",
  "source": "Finnomena",
  "count": 22,
  "items": [
@@ -133,7 +133,7 @@
    "ret5y": 1.49231,
    "sharpe1y": 1.25,
    "maxdd1y": -6.871,
-   "rank1y": 50,
+   "rank1y": 25,
    "aum": 10193188841.39,
    "url": "https://www.finnomena.com/fund/AIA-GEQ"
   },
@@ -361,7 +361,7 @@
    "ret5y": 3.78717,
    "sharpe1y": 1.704,
    "maxdd1y": -4.141,
-   "rank1y": 50,
+   "rank1y": 25,
    "aum": 12697258959.88,
    "url": "https://www.finnomena.com/fund/AIA-TEQ"
   },
