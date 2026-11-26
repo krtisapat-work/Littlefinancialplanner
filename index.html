@@ -133,8 +133,8 @@ tfoot td{font-weight:800;background:#fbfbfc;border-top:2px solid var(--red)}
 .annu{background:linear-gradient(120deg,#fff,#fdf6ee);border:1px solid #ecd9b8}
 .annu .big{font-size:22px;font-weight:800;color:#b26a00}
 /* ===== tax planner ===== */
-.taxwrap{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-@media(max-width:860px){.taxwrap{grid-template-columns:1fr}}
+.taxwrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+@media(max-width:860px){.taxwrap{grid-template-columns:minmax(0,1fr)}}
 .taxcol{display:flex;flex-direction:column;gap:14px}
 .taxbox{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
 .taxbox h4{margin:0 0 10px;font-size:14px;color:var(--red);display:flex;align-items:center;gap:10px}
@@ -154,6 +154,42 @@ tfoot td{font-weight:800;background:#fbfbfc;border-top:2px solid var(--red)}
 .taxtbl td,.taxtbl th{padding:7px 10px;font-size:12.5px}
 .usedlist{font-size:12.5px}.usedlist .li{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px dashed var(--line)}
 .usedlist .li b{font-variant-numeric:tabular-nums;font-weight:700}
+/* เงินได้แยกประเภท 40(1)-40(8) */
+#p-tax .fld input[type=text]{width:100%;border:1px solid var(--line);border-radius:8px;padding:9px 10px;font-family:inherit;font-size:14px;text-align:right;font-variant-numeric:tabular-nums;background:#fff}
+#p-tax .fld input[type=text]:focus,#p-tax .fld select:focus{outline:2px solid var(--red);outline-offset:1px;border-color:var(--red)}
+#p-tax .fld input::placeholder{color:var(--mut)}
+.tag{display:inline-block;font-weight:800;color:var(--red);margin-right:6px;font-variant-numeric:tabular-nums}
+.taxbox .psub{font-size:12px;color:var(--mut);margin-top:2px}
+.inctype{padding:6px 0 10px;border-bottom:1px dashed var(--line)}
+.inctype:last-child{border-bottom:none;padding-bottom:0}
+.incgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 10px;align-items:end}
+.incgrid .fld{margin:6px 0 0}
+.exprow{display:none}.exprow.on{display:block}
+.txmore{margin-top:12px;border-top:1px solid var(--line)}
+.txmore>summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:10px;min-height:46px;font-size:13.5px;font-weight:700;color:var(--ink)}
+.txmore>summary::-webkit-details-marker{display:none}
+.txmore>summary b{margin-left:auto;color:var(--red);font-variant-numeric:tabular-nums}
+.txmore>summary::after{content:"";flex:none;width:8px;height:8px;border-right:2px solid var(--mut);border-bottom:2px solid var(--mut);transform:translateY(-2px) rotate(45deg);transition:transform .2s ease-out}
+.txmore[open]>summary::after{transform:translateY(2px) rotate(-135deg)}
+.txmore>summary:focus-visible{outline:2px solid var(--red);outline-offset:2px;border-radius:6px}
+#p-tax .taxtbl th{white-space:normal;vertical-align:bottom}
+.inctbl td:first-child{white-space:normal;min-width:6.5em}
+@media(max-width:640px){#p-tax .taxtbl td,#p-tax .taxtbl th{padding:6px 5px}}
+.inctbl td .psub{font-size:11px;color:var(--mut)}
+.mintax{font-size:12.5px}.mintax .li{display:flex;justify-content:space-between;gap:10px;padding:3px 0;border-bottom:1px dashed var(--line)}
+.mintax .li b{font-variant-numeric:tabular-nums}
+.mintax .li.use b{color:var(--red)}
+.taxbar{display:none}
+#taxResult{scroll-margin-top:150px}
+@media(max-width:860px){
+ .taxbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:30;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:var(--red2);color:#fff;box-shadow:0 -4px 16px rgba(0,0,0,.18)}
+ .taxbar.off{display:none}
+ .taxbar .k{font-size:12px;opacity:.92}
+ .taxbar .v{font-size:20px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1.2}
+ .taxbar button{flex:none;background:#fff;color:var(--red2);font-weight:700;border-radius:10px;padding:10px 14px;min-height:44px;font-family:inherit;font-size:14px;border:none}
+ #p-tax{padding-bottom:84px}
+}
+@media(max-width:520px){.incgrid{grid-template-columns:minmax(0,1fr)}}
 /* modal */
 .ov{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:60;padding:16px}
 .ov.on{display:flex}
@@ -182,6 +218,14 @@ tfoot td{font-weight:800;background:#fbfbfc;border-top:2px solid var(--red)}
  .qcol-x{display:none}
 }
 @media(max-width:640px){.cust{width:100%}.tab{font-size:12.5px;padding:10px 6px}th,td{padding:7px 6px;font-size:12.5px}}
+/* มือถือ: หัวเว็บไม่ค้างบังจอตอนคีย์บอร์ดเปิด, ตัวอักษรในช่องกรอก 16px กัน iOS ซูมเอง, ช่องกรอกในตารางสูงพอให้แตะ */
+@media(max-width:640px){
+ header{position:relative}
+ input,select,textarea{font-size:16px!important}
+ td input{width:118px;padding:8px 6px;min-height:40px}
+ td select{min-height:40px}
+ #taxResult{scroll-margin-top:12px}
+}
 .modal.wide{max-width:880px}
 .bentbl{width:100%;border-collapse:collapse}
 .bentbl th,.bentbl td{padding:6px 9px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
@@ -330,19 +374,70 @@ body.agent .agentonly{display:block}
  </div>
 
  <div class="panel" id="p-tax">
-  <div class="hint">คำนวณภาษีเงินได้บุคคลธรรมดา <b>ปีภาษี 2569</b> (เหมาะกับเงินได้ประเภทเงินเดือน 40(1)) · เพดานสิทธิแต่ละรายการระบบบังคับให้อัตโนมัติ · ข้อเสนอ "สูตรลดหย่อน 1.3/0.7 เท่า + TISA" ยังไม่มีผลบังคับใช้ จึงยังไม่รวมในเครื่องมือนี้ · โปรดตรวจสอบประกาศกรมสรรพากรก่อนยื่นจริง</div>
+  <div class="hint">คำนวณภาษีเงินได้บุคคลธรรมดา <b>ปีภาษี 2569</b> แยกเงินได้ตามมาตรา 40(1) ถึง 40(8) และหักค่าใช้จ่ายตามอัตราของกรมสรรพากรให้แต่ละประเภท เพดานลดหย่อนแต่ละรายการระบบบังคับให้อัตโนมัติ ข้อเสนอ "สูตรลดหย่อน 1.3/0.7 เท่า + TISA" ยังไม่มีผลบังคับใช้ จึงยังไม่รวมในเครื่องมือนี้ โปรดตรวจสอบประกาศกรมสรรพากรก่อนยื่นจริง</div>
   <div class="taxwrap">
    <div class="taxcol">
     <div class="taxbox">
-     <h4>1) รายได้</h4>
-     <div class="fld"><label>รายได้พึงประเมินต่อปี (บาท)</label><input id="txIncome" type="text" inputmode="numeric" min="0" step="10000" placeholder="เช่น 1,200,000" oninput="grpCaret(this);renderTax()"></div>
-     <div class="fld"><label>ค่าใช้จ่าย</label>
-      <select id="txExpMode" onchange="renderTax()">
-        <option value="salary">เงินเดือน — หัก 50% ไม่เกิน 100,000</option>
-        <option value="manual">กรอกเอง (เงินได้ประเภทอื่น)</option>
-      </select>
-      <input id="txExpManual" type="text" inputmode="numeric" min="0" step="1000" placeholder="ค่าใช้จ่าย" style="display:none" oninput="grpCaret(this);renderTax()">
-     </div>
+     <h4>1) เงินได้แยกตามประเภท (มาตรา 40)</h4>
+     <div class="psub">กรอกเฉพาะประเภทที่มี หน่วยเป็นบาทต่อปี</div>
+     <div class="fld"><label for="tx401"><span class="tag">40(1)</span>เงินเดือน ค่าจ้าง โบนัส บำนาญ</label><input id="tx401" type="text" inputmode="numeric" autocomplete="off" placeholder="เช่น 1,200,000" oninput="grpCaret(this);renderTax()"></div>
+     <div class="fld"><label for="tx402"><span class="tag">40(2)</span>ค่านายหน้า ค่าคอมมิชชั่น ค่าธรรมเนียม เบี้ยประชุม รับจ้างทั่วไป</label><input id="tx402" type="text" inputmode="numeric" autocomplete="off" oninput="grpCaret(this);renderTax()"></div>
+     <div class="psub">40(1) และ 40(2) หักค่าใช้จ่ายรวมกัน 50% ไม่เกิน 100,000 บาท</div>
+     <details class="txmore" id="txMore">
+      <summary>เงินได้ประเภทอื่น 40(3) ถึง 40(8)<b id="txMoreSum"></b></summary>
+      <div class="inctype">
+       <div class="incgrid">
+        <div class="fld"><label for="tx403"><span class="tag">40(3)</span>ค่าลิขสิทธิ์ ค่าแห่งกู๊ดวิลล์ ค่าสิทธิอย่างอื่น</label><input id="tx403" type="text" inputmode="numeric" autocomplete="off" oninput="grpCaret(this);renderTax()"></div>
+        <div class="fld"><label for="tx403m">วิธีหักค่าใช้จ่าย</label><select id="tx403m" onchange="renderTax()"><option value="r50">เหมา 50% ไม่เกิน 100,000</option><option value="actual">ตามจริง</option></select></div>
+       </div>
+       <div class="fld exprow" id="tx403eRow"><label for="tx403e">ค่าใช้จ่ายจริง (บาท)</label><input id="tx403e" type="text" inputmode="numeric" autocomplete="off" oninput="grpCaret(this);renderTax()"></div>
+       <div class="psub">เงินรายปีจากพินัยกรรมหรือคำพิพากษาหักค่าใช้จ่ายไม่ได้ ให้เลือกตามจริงแล้วเว้นช่องค่าใช้จ่ายว่างไว้</div>
+      </div>
+      <div class="inctype">
+       <div class="fld"><label for="tx404"><span class="tag">40(4)</span>ดอกเบี้ย เงินปันผล ส่วนแบ่งกำไร (หักค่าใช้จ่ายไม่ได้)</label><input id="tx404" type="text" inputmode="numeric" autocomplete="off" oninput="grpCaret(this);renderTax()"></div>
+       <div class="psub">กรอกเฉพาะส่วนที่เลือกนำมารวมคำนวณ ส่วนที่ถูกหัก ณ ที่จ่าย 15% หรือ 10% และเลือกไม่นำมารวม ไม่ต้องกรอก เครื่องมือนี้ยังไม่คิดเครดิตภาษีเงินปันผล</div>
+      </div>
+      <div class="inctype">
+       <div class="incgrid">
+        <div class="fld"><label for="tx405"><span class="tag">40(5)</span>ค่าเช่าทรัพย์สิน</label><input id="tx405" type="text" inputmode="numeric" autocomplete="off" oninput="grpCaret(this);renderTax()"></div>
+        <div class="fld"><label for="tx405m">ทรัพย์สินที่ให้เช่า</label><select id="tx405m" onchange="renderTax()">
+          <option value="house">บ้าน โรงเรือน สิ่งปลูกสร้าง แพ (เหมา 30%)</option>
+          <option value="vehicle">ยานพาหนะ (เหมา 30%)</option>
+          <option value="agri">ที่ดินที่ใช้ในการเกษตร (เหมา 20%)</option>
+          <option value="land">ที่ดินที่ไม่ได้ใช้ในการเกษตร (เหมา 15%)</option>
+          <option value="other">ทรัพย์สินอื่น (เหมา 10%)</option>
+          <option value="hp">ผิดสัญญาเช่าซื้อ ซื้อขายเงินผ่อน (เหมา 20%)</option>
+          <option value="actual">ตามจริง</option></select></div>
+       </div>
+       <div class="fld exprow" id="tx405eRow"><label for="tx405e">ค่าใช้จ่ายจริง (บาท)</label><input id="tx405e" type="text" inputmode="numeric" autocomplete="off" oninput="grpCaret(this);renderTax()"></div>
+       <div class="psub">ให้เช่าทรัพย์หลายประเภทที่อัตราต่างกัน ให้คำนวณค่าใช้จ่ายรวมแล้วเลือกตามจริง</div>
+      </div>
+      <div class="inctype">
+       <div class="incgrid">
+        <div class="fld"><label for="tx406"><span class="tag">40(6)</span>วิชาชีพอิสระ</label><input id="tx406" type="text" inputmode="numeric" autocomplete="off" oninput="grpCaret(this);renderTax()"></div>
+        <div class="fld"><label for="tx406m">วิชาชีพ</label><select id="tx406m" onchange="renderTax()">
+          <option value="med">ประกอบโรคศิลปะ (เหมา 60%)</option>
+          <option value="prof">กฎหมาย วิศวกรรม สถาปัตยกรรม บัญชี ประณีตศิลปกรรม (เหมา 30%)</option>
+          <option value="actual">ตามจริง</option></select></div>
+       </div>
+       <div class="fld exprow" id="tx406eRow"><label for="tx406e">ค่าใช้จ่ายจริง (บาท)</label><input id="tx406e" type="text" inputmode="numeric" autocomplete="off" oninput="grpCaret(this);renderTax()"></div>
+      </div>
+      <div class="inctype">
+       <div class="incgrid">
+        <div class="fld"><label for="tx407"><span class="tag">40(7)</span>รับเหมาที่ต้องลงทุนจัดหาสัมภาระเอง (นอกจากเครื่องมือ)</label><input id="tx407" type="text" inputmode="numeric" autocomplete="off" oninput="grpCaret(this);renderTax()"></div>
+        <div class="fld"><label for="tx407m">วิธีหักค่าใช้จ่าย</label><select id="tx407m" onchange="renderTax()"><option value="r60">เหมา 60%</option><option value="actual">ตามจริง</option></select></div>
+       </div>
+       <div class="fld exprow" id="tx407eRow"><label for="tx407e">ค่าใช้จ่ายจริง (บาท)</label><input id="tx407e" type="text" inputmode="numeric" autocomplete="off" oninput="grpCaret(this);renderTax()"></div>
+      </div>
+      <div class="inctype">
+       <div class="incgrid">
+        <div class="fld"><label for="tx408"><span class="tag">40(8)</span>ธุรกิจ การพาณิชย์ การเกษตร การอุตสาหกรรม การขนส่ง และเงินได้อื่น</label><input id="tx408" type="text" inputmode="numeric" autocomplete="off" oninput="grpCaret(this);renderTax()"></div>
+        <div class="fld"><label for="tx408m">วิธีหักค่าใช้จ่าย</label><select id="tx408m" onchange="renderTax()"><option value="r60">เหมา 60%</option><option value="actual">ตามจริง</option></select></div>
+       </div>
+       <div class="fld exprow" id="tx408eRow"><label for="tx408e">ค่าใช้จ่ายจริง (บาท)</label><input id="tx408e" type="text" inputmode="numeric" autocomplete="off" oninput="grpCaret(this);renderTax()"></div>
+       <div class="psub">เหมา 60% ใช้กับธุรกิจในรายการของกรมสรรพากร เงินได้ 40(8) ที่ไม่อยู่ในรายการหักได้ตามจริงเท่านั้น</div>
+      </div>
+     </details>
     </div>
     <div class="taxbox">
      <h4>2) ครอบครัว</h4>
@@ -363,7 +458,7 @@ body.agent .agentonly{display:block}
     </div>
     <div class="taxbox">
      <h4>4) กองทุน/เกษียณ</h4>
-     <div class="fld"><label>PVD / กบข. / สงเคราะห์ครู (≤15% ของรายได้)</label><input id="txPvd" type="text" inputmode="numeric" min="0" step="1000" oninput="grpCaret(this);renderTax()"></div>
+     <div class="fld"><label>PVD / กบข. / สงเคราะห์ครู (≤15% ของค่าจ้าง 40(1))</label><input id="txPvd" type="text" inputmode="numeric" min="0" step="1000" oninput="grpCaret(this);renderTax()"></div>
      <div class="fld"><label>RMF (≤30% ของรายได้)</label><input id="txRmf" type="text" inputmode="numeric" min="0" step="1000" oninput="grpCaret(this);renderTax()"></div>
      <div class="psub">กลุ่มเกษียณ (บำนาญ+PVD+กบข.+RMF) รวมกันไม่เกิน 500,000</div>
      <div class="fld"><label>Thai ESG (≤30% ของรายได้ ไม่เกิน 300,000 — ซื้อภายในปี 2569)</label><input id="txEsg" type="text" inputmode="numeric" min="0" step="1000" oninput="grpCaret(this);renderTax()"></div>
@@ -381,6 +476,10 @@ body.agent .agentonly{display:block}
    <div class="taxcol">
     <div id="taxResult"></div>
    </div>
+  </div>
+  <div class="taxbar no-print" id="taxBar" aria-live="polite">
+   <div><div class="k">ภาษีที่ต้องชำระ ปีภาษี 2569</div><div class="v"><span id="taxBarV">0</span> บาท</div></div>
+   <button type="button" onclick="document.getElementById('taxResult').scrollIntoView({behavior:'smooth',block:'start'})">ดูรายละเอียด</button>
   </div>
  </div>
 
@@ -636,6 +735,30 @@ function toggleAdd(id){
   renderAll();
 }
 function updateItem(id,field,val){ if(sel[id]){ sel[id][field]=val; renderQuote(); renderBack(); } }
+// ---------- ช่องกรอกในตาราง: คำนวณใหม่ระหว่างพิมพ์ (มือถือไม่ต้องแตะออกจากช่อง) ----------
+let liveTimer=null;
+function liveItem(el,id,field){ grpCaret(el); clearTimeout(liveTimer); const v=unnum(el.value); liveTimer=setTimeout(()=>updateItem(id,field,v),200); }
+function liveCommit(el,id,field){ clearTimeout(liveTimer); updateItem(id,field,unnum(el.value)); }
+// เขียน HTML ใหม่ทั้งก้อน แต่เก็บช่องที่กำลังพิมพ์อยู่ (data-live) ไว้ที่เดิม focus จึงไม่หลุดและคีย์บอร์ดไม่ปิด
+function setHtmlKeep(el,html){
+  const a=document.activeElement, key=a&&a.dataset?a.dataset.live:null;
+  if(!key||!el.contains(a)){ el.innerHTML=html; return; }
+  const tmp=document.createElement(el.tagName); tmp.innerHTML=html;
+  const n=[...tmp.querySelectorAll('[data-live]')].find(x=>x.dataset.live===key);
+  if(!n){ el.innerHTML=html; return; }
+  keepMorph(el,tmp,a,n);
+}
+function keepMorph(oldP,newP,a,n){
+  const keepOld=[...oldP.childNodes].find(c=>c===a||(c.contains&&c.contains(a)));
+  const keepNew=[...newP.childNodes].find(c=>c===n||(c.contains&&c.contains(n)));
+  [...oldP.childNodes].forEach(c=>{ if(c!==keepOld) c.remove(); });
+  let before=true;
+  [...newP.childNodes].forEach(c=>{ if(c===keepNew){ before=false; return; } if(before) oldP.insertBefore(c,keepOld); else oldP.appendChild(c); });
+  if(keepOld===a) return;
+  [...keepOld.attributes].forEach(at=>{ if(!keepNew.hasAttribute(at.name)) keepOld.removeAttribute(at.name); });
+  [...keepNew.attributes].forEach(at=>keepOld.setAttribute(at.name,at.value));
+  keepMorph(keepOld,keepNew,a,n);
+}
 function removeItem(id){ delete sel[id]; renderAll(); }
 function clearAll(){ for(const k in sel) delete sel[k]; renderAll(); }
 function renderAll(){ renderGrid(); renderQuote(); renderBack(); }
@@ -645,8 +768,9 @@ function termCellHtml(id,it,p){
     ? `<select onchange="updateItem('${id}','term',this.value)">${p.terms.map(t=>`<option value="${t}" ${t===it.term?'selected':''}>${TERMNAME[t]||t}</option>`).join('')}</select>`
     : (TERMNAME[it.term]||it.term);
 }
-function saPremCells(id,it,p){
+function saPremCells(id,it,p,pfx){
   const auto=p.premiumModel==='per1000';
+  const liveIn=(field,val,ph)=>`<input type="text" inputmode="numeric" autocomplete="off" data-live="${pfx}:${field}:${id}"${ph?` placeholder="${ph}"`:''} value="${val}" oninput="liveItem(this,'${id}','${field}')" onchange="liveCommit(this,'${id}','${field}')">`;
   const pr=annualPremium(it);
   let saCell, premCell;
   if(id==='ci_top_up'){                                // ทุน = 40% ของ CI Plus (auto) · เบี้ยกรอกเอง
@@ -654,7 +778,7 @@ function saPremCells(id,it,p){
     if(linked!=null){ it.sa=linked; const raw=Math.max(0,parseFloat(sel['ci_plus'].sa)||0);
       saCell=`<span class="num">${fmt(linked)}</span><div class="psub">= 40% ของ CI Plus (${fmt(raw)})${raw*0.40>5000000?' · จำกัด 5 ล้าน':''}</div>`;
     } else { it.sa=0; saCell=`<span class="warn">ต้องเพิ่ม CI Plus ในแผนก่อน</span>`; }
-    premCell=`<input type="text" inputmode="numeric" placeholder="กรอกเบี้ย" value="${it.manual?fmt(it.manual):''}" oninput="grpCaret(this)" onchange="updateItem('ci_top_up','manual',unnum(this.value))">`;
+    premCell=liveIn('manual', it.manual?fmt(it.manual):'', 'กรอกเบี้ย');
     return {saCell, premCell, pr:annualPremium(it)};
   }
   if(p.premiumModel==='plan'){
@@ -664,12 +788,12 @@ function saPremCells(id,it,p){
     saCell = planSel+areaSel;
     premCell = pr==null? `<span class="warn">อายุนี้ไม่มีในตารางเบี้ย</span>` : `<span class="num">${fmt(pr)}</span>`;
   } else if(auto){
-    saCell = `<input type="text" inputmode="numeric" value="${fmt(it.sa)}" oninput="grpCaret(this)" onchange="updateItem('${id}','sa',unnum(this.value))">`;
+    saCell = liveIn('sa', fmt(it.sa));
     premCell = pr==null? `<span class="warn">อายุ/แบบนี้ไม่มีในตารางเบี้ย</span>` : `<span class="num">${fmt(pr)}</span>`;
   } else {                                             // กรอกเบี้ยเอง (แสดงตัวเลือกแผน/แบบถ้ามี เช่น CI Hero)
     const pdm=DATA.premiums[id];
     if(p.saInput){
-      saCell = `<input type="text" inputmode="numeric" value="${fmt(it.sa)}" oninput="grpCaret(this)" onchange="updateItem('${id}','sa',unnum(this.value))">`;
+      saCell = liveIn('sa', fmt(it.sa));
     } else if(pdm && pdm.plans){
       const planSel=`<select onchange="updateItem('${id}','plan',this.value)">${pdm.plans.map(pl=>`<option value="${pl.key}" ${pl.key===(it.plan||pdm.plans[0].key)?'selected':''}>${pl.label}</option>`).join('')}</select>`;
       const areaSel=pdm.areas?`<br><select style="margin-top:4px" onchange="updateItem('${id}','area',this.value)">${pdm.areas.map(ar=>`<option value="${ar.key}" ${ar.key===(it.area||pdm.areas[0].key)?'selected':''}>${ar.label}</option>`).join('')}</select>`:'';
@@ -677,7 +801,7 @@ function saPremCells(id,it,p){
     } else {
       saCell = `<span class="psub">—</span>`;
     }
-    premCell = `<input type="text" inputmode="numeric" placeholder="กรอกเบี้ย" value="${it.manual?fmt(it.manual):''}" oninput="grpCaret(this)" onchange="updateItem('${id}','manual',unnum(this.value))">`;
+    premCell = liveIn('manual', it.manual?fmt(it.manual):'', 'กรอกเบี้ย');
   }
   return {saCell, premCell, pr};
 }
@@ -695,8 +819,8 @@ function renderQuote(){
   if(!ids.length){ body.innerHTML=''; foot.innerHTML=''; return; }
   let tP=0;
   const items = ids.map(id=>({id, p:byId[id], it:sel[id]}));
-  body.innerHTML = items.map(({id,p,it})=>{
-    const {saCell,premCell,pr}=saPremCells(id,it,p);
+  setHtmlKeep(body, items.map(({id,p,it})=>{
+    const {saCell,premCell,pr}=saPremCells(id,it,p,'q');
     if(pr!=null) tP+=pr;
     return `<tr>
       <td><div class="pname"><span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:${PALETTE[it.ci]};margin-right:6px"></span>${p.th}</div><div class="psub">${p.en}</div></td>
@@ -705,7 +829,7 @@ function renderQuote(){
       <td>${premCell}</td>
       <td class="qcol-x"><button class="b-rm" title="ลบ" onclick="removeItem('${id}')">✕</button></td>
     </tr>`;
-  }).join('');
+  }).join(''));
   foot.innerHTML = `<tr><td>รวม ${ids.length} แบบ</td><td></td><td></td><td class="num">${fmt(tP)}</td><td class="qcol-x"></td></tr>`;
   // summary cards
   const c=customer();
@@ -852,9 +976,9 @@ function renderBack(){
   document.getElementById('bempty').style.display = ids.length?'none':'block';
   if(!ids.length){ body.innerHTML=''; foot.innerHTML=''; document.getElementById('byYear').innerHTML=''; return; }
   let tP=0,tF=0,tC=0;
-  body.innerHTML = ids.map(id=>{
+  setHtmlKeep(body, ids.map(id=>{
     const p=byId[id], it=sel[id];
-    const {saCell,premCell,pr}=saPremCells(id,it,p);
+    const {saCell,premCell,pr}=saPremCells(id,it,p,'b');
     const y=commYears(it), f=fyc(it), tot=totalComm(it);
     if(pr!=null)tP+=pr; if(f!=null)tF+=f; if(tot!=null)tC+=tot;
     const needRider=(DATA.commission[id]?.dims||[]).includes('rider');
@@ -875,7 +999,7 @@ function renderBack(){
       rows += `<tr class="subrow"><td colspan="8"><div class="yrchips">${chips}</div></td></tr>`;
     }
     return rows;
-  }).join('');
+  }).join(''));
   foot.innerHTML=`<tr><td>รวม ${ids.length} รายการ</td><td></td><td></td><td class="num">${fmt(tP)}</td><td></td><td class="num">${fmt(tF)}</td><td class="num">${fmt(tC)}</td><td></td></tr>`;
   renderByYear(ids);
 }
@@ -953,11 +1077,40 @@ function pullPlanIns(){
   renderTax();
 }
 function tv(id){ const v=parseFloat(String(document.getElementById(id).value).replace(/,/g,'')); return (Number.isFinite(v)&&v>0)?v:0; }
+// ค่าใช้จ่ายแยกตามประเภทเงินได้ (ภ.ง.ด.90 ปีภาษี 2567 และ rd.go.th/556.html)
+// 40(1)+40(2) หักรวมกัน 50% ไม่เกิน 100,000, 40(4) หักไม่ได้, ประเภทอื่นเลือกเหมาหรือตามจริง
+const INC_EXP={
+  '403':{r50:{rate:.50,cap:100000,lb:'เหมา 50% ไม่เกิน 100,000'}},
+  '405':{house:{rate:.30,lb:'เหมา 30%'},vehicle:{rate:.30,lb:'เหมา 30%'},agri:{rate:.20,lb:'เหมา 20%'},land:{rate:.15,lb:'เหมา 15%'},other:{rate:.10,lb:'เหมา 10%'},hp:{rate:.20,lb:'เหมา 20%'}},
+  '406':{med:{rate:.60,lb:'เหมา 60%'},prof:{rate:.30,lb:'เหมา 30%'}},
+  '407':{r60:{rate:.60,lb:'เหมา 60%'}},
+  '408':{r60:{rate:.60,lb:'เหมา 60%'}}
+};
+const INC_NAME={'401':'40(1) เงินเดือน ค่าจ้าง','402':'40(2) ค่านายหน้า ค่าธรรมเนียม','403':'40(3) ลิขสิทธิ์ สิทธิต่าง ๆ','404':'40(4) ดอกเบี้ย เงินปันผล','405':'40(5) ค่าเช่าทรัพย์สิน','406':'40(6) วิชาชีพอิสระ','407':'40(7) รับเหมา','408':'40(8) ธุรกิจ และเงินได้อื่น'};
+const INC_OTHER=['403','404','405','406','407','408'];
+function incomeBreakdown(){
+  const v=k=>tv('tx'+k);
+  const m=k=>{ const el=document.getElementById('tx'+k+'m'); return el?el.value:''; };
+  const i1=v('401'), i2=v('402');
+  const rows=[];
+  if(i1+i2>0) rows.push({keys:['401','402'].filter(k=>v(k)>0), incs:[i1,i2].filter(x=>x>0), inc:i1+i2, exp:Math.min((i1+i2)*0.5,100000), how:'50% รวมกันไม่เกิน 100,000'});
+  for(const k of INC_OTHER){
+    const inc=v(k); if(!inc) continue;
+    let exp=0, how='หักไม่ได้';
+    if(INC_EXP[k]){
+      if(m(k)==='actual'){ exp=Math.min(v(k+'e'),inc); how='ตามจริง'; }
+      else { const r=INC_EXP[k][m(k)]||Object.values(INC_EXP[k])[0]; exp=Math.min(inc*r.rate, r.cap||Infinity); how=r.lb; }
+    }
+    rows.push({keys:[k], incs:[inc], inc, exp, how});
+  }
+  const total=rows.reduce((s,r)=>s+r.inc,0), exp=rows.reduce((s,r)=>s+r.exp,0);
+  return {rows,total,exp,salary:i1,other:INC_OTHER.reduce((s,k)=>s+v(k),0)};
+}
 function computeTax(ov){
   // ov = override {life,health,pension} หรือ null = ใช้ค่าจากฟอร์ม
-  const income=tv('txIncome');
-  const expMode=document.getElementById('txExpMode').value;
-  const expenses = expMode==='salary' ? Math.min(income*0.5,100000) : Math.min(tv('txExpManual'),income);
+  const B=incomeBreakdown();
+  const income=B.total;          // เงินได้พึงประเมินรวมทุกประเภท (ฐานเพดานบำนาญ/RMF/Thai ESG)
+  const expenses=B.exp;
   const U={}; // used amounts
   U['ค่าใช้จ่าย']=expenses;
   U['ลดหย่อนส่วนตัว']=60000;
@@ -976,7 +1129,7 @@ function computeTax(ov){
   U['ประกันสุขภาพตนเอง']=healthC;
   U['ประกันสุขภาพบิดามารดา']=Math.min(tv('txParentHealth'),15000);
   const pensionC=Math.min(pensionIn, income*0.15, 200000);
-  const pvdC=Math.min(tv('txPvd'), income*0.15);
+  const pvdC=Math.min(tv('txPvd'), B.salary*0.15);              // PVD/กบข. ≤15% ของค่าจ้าง 40(1)
   const rmfC=Math.min(tv('txRmf'), income*0.30);
   const groupRaw=pensionC+pvdC+rmfC;
   const groupC=Math.min(groupRaw,500000);                      // กลุ่มเกษียณรวม ≤500,000
@@ -995,46 +1148,89 @@ function computeTax(ov){
   if(eduUsed>0) U['บริจาค 2 เท่า (การศึกษา/กีฬา/รพ.รัฐ)']=eduUsed;
   if(genUsed>0) U['บริจาคทั่วไป']=genUsed;
   const net=Math.max(0, A-eduUsed-genUsed);
-  const {tax,rows}=progressiveTax(net);
-  return {income,expenses,net,tax,rows,U};
+  const {tax:tax1,rows}=progressiveTax(net);
+  // ภ.ง.ด.90 ข้อ 11: เงินได้ที่ไม่ใช่ 40(1) ตั้งแต่ 120,000 บาท คิดอีกวิธี 0.5% ของเงินได้ก่อนหักค่าใช้จ่าย
+  // เสียวิธีที่มากกว่า เว้นแต่วิธี 0.5% ไม่เกิน 5,000 บาท ให้เสียตามขั้นบันได
+  const nonSal=income-B.salary;
+  const tax2 = nonSal>=120000 ? nonSal*0.005 : 0;
+  const useMin = tax2>5000 && tax2>tax1;
+  const tax = useMin ? tax2 : tax1;
+  return {income,expenses,net,tax,tax1,tax2,nonSal,useMin,rows,U,B};
 }
 function renderTax(){
-  const expManual=document.getElementById('txExpManual');
-  expManual.style.display = document.getElementById('txExpMode').value==='manual' ? 'block':'none';
+  INC_OTHER.forEach(k=>{ const row=document.getElementById('tx'+k+'eRow'), m=document.getElementById('tx'+k+'m');
+    if(row&&m) row.classList.toggle('on', m.value==='actual'); });
+  const otherSum=INC_OTHER.reduce((s,k)=>s+tv('tx'+k),0);
+  document.getElementById('txMoreSum').textContent = otherSum? fmt(otherSum)+' บาท' : '';
   const out=document.getElementById('taxResult');
-  const income=tv('txIncome');
+  const barV=document.getElementById('taxBarV');
   saveTax();
-  if(!income){ out.innerHTML='<div class="taxbox"><h4>ผลการคำนวณ</h4><div class="psub">กรอกรายได้พึงประเมินต่อปีก่อน ระบบจะคำนวณให้ทันที</div></div>'; return; }
+  const B=incomeBreakdown();
+  if(!B.total){
+    out.innerHTML='<div class="taxbox"><h4>ผลการคำนวณ</h4><div class="psub">กรอกเงินได้อย่างน้อย 1 ประเภททางซ้าย ระบบจะคำนวณให้ทันที</div></div>';
+    if(barV) barV.textContent='0'; return; }
   const R=computeTax(null);
   const R0=computeTax({life:0,health:0,pension:0});
   const save=Math.max(0,R0.tax-R.tax);
   const eff=R.income? (R.tax/R.income*100):0;
   const marg=marginalRate(R.net)*100;
+  if(barV) barV.textContent=fmt(R.tax);
   const usedRows=Object.entries(R.U).filter(([k,v])=>v!==0).map(([k,v])=>
     `<div class="li"><span>${k}</span><b>${v<0?'−':''}${fmt(Math.abs(v))}</b></div>`).join('');
-  const brRows=R.rows.map(r=>`<tr><td>${fmt(r.lo+1)} – ${r.hi===Infinity?'ขึ้นไป':fmt(r.hi)}</td><td class="num">${(r.rate*100).toFixed(0)}%</td><td class="num">${fmt(r.amt)}</td><td class="num">${fmt(r.t)}</td></tr>`).join('');
+  const brRows=R.rows.map(r=>`<tr><td>${fmt(r.lo+1)} - ${r.hi===Infinity?'ขึ้นไป':fmt(r.hi)}</td><td class="num">${(r.rate*100).toFixed(0)}%</td><td class="num">${fmt(r.amt)}</td><td class="num">${fmt(r.t)}</td></tr>`).join('');
+  // ตารางเงินได้แยกประเภท: 40(1) กับ 40(2) ใช้ค่าใช้จ่ายก้อนเดียวกัน จึงรวมเซลล์ค่าใช้จ่าย
+  const incRows=R.B.rows.map(r=>r.keys.map((k,i)=>{
+    const span=r.keys.length, first=i===0;
+    return `<tr><td>${INC_NAME[k]}${first?`<div class="psub">${r.how}</div>`:''}</td><td class="num">${fmt(r.incs[i])}</td>${first?`<td class="num" rowspan="${span}">${fmt(r.exp)}</td><td class="num" rowspan="${span}">${fmt(r.inc-r.exp)}</td>`:''}</tr>`;
+  }).join('')).join('');
+  const form = R.B.total===R.B.salary ? 'ภ.ง.ด.91 (มีเงินได้ 40(1) อย่างเดียว)' : 'ภ.ง.ด.90';
+  const has58 = ['405','406','407','408'].some(k=>tv('tx'+k)>0);
+  const minBox = R.nonSal>=120000 ? `<div class="taxbox" style="margin-top:12px"><h4>เทียบภาษี 2 วิธี (เงินได้ที่ไม่ใช่ 40(1) ตั้งแต่ 120,000 บาท)</h4>
+      <div class="mintax">
+       <div class="li${R.useMin?'':' use'}"><span>วิธีที่ 1 ขั้นบันไดจากเงินได้สุทธิ</span><b>${fmt(R.tax1)}</b></div>
+       <div class="li${R.useMin?' use':''}"><span>วิธีที่ 2 ร้อยละ 0.5 ของเงินได้ ${fmt(R.nonSal)} บาท (ไม่รวม 40(1) และก่อนหักค่าใช้จ่าย)</span><b>${fmt(R.tax2)}</b></div>
+      </div>
+      <div class="psub" style="margin-top:6px">${R.tax2<=5000?'วิธีที่ 2 ไม่เกิน 5,000 บาท จึงเสียตามวิธีที่ 1':(R.useMin?'วิธีที่ 2 สูงกว่า จึงเสียตามวิธีที่ 2':'วิธีที่ 1 สูงกว่า จึงเสียตามวิธีที่ 1')}</div></div>` : '';
   out.innerHTML=`
     <div class="taxhero"><div class="k">ภาษีที่ต้องชำระ (ปีภาษี 2569)</div>
       <div class="v">${fmt(R.tax)} <small>บาท/ปี</small></div>
-      <div class="k" style="margin-top:4px">เงินได้สุทธิ ${fmt(R.net)} บาท · อัตราภาษีเฉลี่ย ${eff.toFixed(2)}% · ขั้นภาษีส่วนเพิ่ม ${marg.toFixed(0)}%</div></div>
+      <div class="k" style="margin-top:4px">เงินได้สุทธิ ${fmt(R.net)} บาท, อัตราภาษีเฉลี่ย ${eff.toFixed(2)}%, ขั้นภาษีส่วนเพิ่ม ${marg.toFixed(0)}%${R.useMin?', เสียตามวิธี 0.5%':''}</div></div>
     ${save>0?`<div class="taxsave" style="margin-top:12px"><div>💡 เบี้ยประกัน (ชีวิต+สุขภาพ+บำนาญ) ในฟอร์มนี้ช่วยประหยัดภาษี</div><div class="v">${fmt(save)} บาท/ปี</div><div style="font-size:12px;opacity:.9">เทียบกับกรณีไม่มีประกันทั้ง 3 หมวด (ภาษี ${fmt(R0.tax)} บาท)</div></div>`:''}
+    <div class="taxbox" style="margin-top:12px"><h4>เงินได้แยกประเภทและค่าใช้จ่าย</h4>
+      <div style="overflow-x:auto"><table class="taxtbl inctbl"><thead><tr><th>ประเภทเงินได้</th><th>เงินได้</th><th>หักค่าใช้จ่าย</th><th>คงเหลือ</th></tr></thead>
+      <tbody>${incRows}</tbody>
+      <tfoot><tr><td>รวม</td><td class="num">${fmt(R.B.total)}</td><td class="num">${fmt(R.B.exp)}</td><td class="num">${fmt(R.B.total-R.B.exp)}</td></tr></tfoot></table></div>
+      <div class="psub" style="margin-top:6px">แบบที่ใช้ยื่น: ${form}${has58?' และยื่น ภ.ง.ด.94 สำหรับเงินได้ 40(5) ถึง 40(8) ที่ได้รับช่วงมกราคมถึงมิถุนายน':''}</div></div>
+    ${minBox}
     <div class="taxbox" style="margin-top:12px"><h4>รายการหักที่ใช้ได้จริง (หลังเพดาน)</h4><div class="usedlist">${usedRows}</div></div>
     <div class="taxbox" style="margin-top:12px"><h4>การคำนวณตามขั้นบันได</h4>
       <div style="overflow-x:auto"><table class="taxtbl"><thead><tr><th>เงินได้สุทธิช่วง (บาท)</th><th>อัตรา</th><th>จำนวนเงิน</th><th>ภาษี</th></tr></thead>
       <tbody>${brRows}</tbody>
-      <tfoot><tr><td>รวม</td><td></td><td></td><td class="num">${fmt(R.tax)}</td></tr></tfoot></table></div></div>`;
+      <tfoot><tr><td>รวม</td><td></td><td></td><td class="num">${fmt(R.tax1)}</td></tr></tfoot></table></div></div>`;
 }
-const TAXIDS=['txIncome','txExpMode','txExpManual','txSpouse','txChild30','txChild60','txParent','txDisabled','txMaternity','txLife','txHealth','txPension','txParentHealth','txPvd','txRmf','txEsg','txSso','txMortgage','txStim','txDonEdu','txDonGen','txDonParty'];
+const TAXIDS=['tx401','tx402','tx403','tx403m','tx403e','tx404','tx405','tx405m','tx405e','tx406','tx406m','tx406e','tx407','tx407m','tx407e','tx408','tx408m','tx408e','txSpouse','txChild30','txChild60','txParent','txDisabled','txMaternity','txLife','txHealth','txPension','txParentHealth','txPvd','txRmf','txEsg','txSso','txMortgage','txStim','txDonEdu','txDonGen','txDonParty'];
 function saveTax(){
   const o={}; TAXIDS.forEach(id=>{const el=document.getElementById(id); o[id]=el.type==='checkbox'?el.checked:el.value;});
   lSet('aia_tax_v1', JSON.stringify(o));
 }
 function loadTax(){
   try{ const o=JSON.parse(lGet('aia_tax_v1')||'{}');
-    TAXIDS.forEach(id=>{ if(o[id]===undefined) return; const el=document.getElementById(id);
+    // ค่าที่บันทึกจากรุ่นก่อน (ช่องรายได้ช่องเดียว): เงินเดือน → 40(1), กรอกค่าใช้จ่ายเอง → 40(8) ตามจริง
+    if(o.tx401===undefined && o.txIncome!==undefined){
+      if(o.txExpMode==='manual'){ o.tx408=o.txIncome; o.tx408m='actual'; o.tx408e=o.txExpManual||''; }
+      else o.tx401=o.txIncome;
+    }
+    TAXIDS.forEach(id=>{ if(o[id]===undefined) return; const el=document.getElementById(id); if(!el) return;
       if(el.type==='checkbox') el.checked=!!o[id]; else el.value = (el.getAttribute('inputmode')==='numeric') ? grp(o[id]) : o[id]; });
   }catch(e){}
+  if(INC_OTHER.some(k=>tv('tx'+k)>0)) document.getElementById('txMore').open=true;
 }
+// มือถือ: แถบภาษีด้านล่างซ่อนเมื่อเลื่อนมาถึงผลการคำนวณแล้ว
+(function(){
+  const bar=document.getElementById('taxBar'), res=document.getElementById('taxResult');
+  if(!bar||!res||!('IntersectionObserver' in window)) return;
+  new IntersectionObserver(es=>{ bar.classList.toggle('off', es[0].isIntersecting); },{rootMargin:'0px 0px -90px 0px'}).observe(res);
+})();
 
 // ================= XLSX export (pure JS, store-only zip) =================
 function crc32(bytes){
@@ -1240,7 +1436,7 @@ function valControlsHtml(id){ const d=valDefaults(id),p=byId[id];
  return `<div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:2px 0 8px;background:#f7f8fa;border:1px solid var(--line);border-radius:10px;padding:8px 11px">
   <label style="font-size:12.5px">อายุ <input id="valAge" type="number" min="0" max="80" value="${d.age}" style="width:54px;padding:5px;text-align:center" oninput="renderValSec('${id}')"></label>
   <label style="font-size:12.5px">เพศ <select id="valGender" onchange="renderValSec('${id}')" style="padding:5px"><option value="M" ${d.gender==='M'?'selected':''}>ชาย</option><option value="F" ${d.gender==='F'?'selected':''}>หญิง</option></select></label>
-  <label style="font-size:12.5px">ทุนประกัน <input id="valSA" type="text" inputmode="numeric" value="${fmt(d.sa)}" style="width:112px;padding:5px;text-align:right" oninput="grpCaret(this)" onchange="renderValSec('${id}')"></label>
+  <label style="font-size:12.5px">ทุนประกัน <input id="valSA" type="text" inputmode="numeric" value="${fmt(d.sa)}" style="width:112px;padding:5px;text-align:right" oninput="grpCaret(this);renderValSec('${id}')"></label>
   ${termSel}</div>`; }
 function renderValSec(id){
  const sec=document.getElementById('valSec'); if(!sec) return;
@@ -1486,9 +1682,9 @@ function li999DetailHtml(){
      '<div><label>เพศ</label><select id="l9Gender" onchange="renderLi999()">'+
        '<option value="F"'+(gender==='F'?' selected':'')+'>หญิง</option>'+
        '<option value="M"'+(gender==='M'?' selected':'')+'>ชาย</option></select></div>'+
-     '<div><label>จำนวนเงินเอาประกันภัย (บาท)</label><input id="l9SA" type="text" inputmode="numeric" value="'+fmt(sa)+'" style="width:126px;text-align:right" oninput="grpCaret(this)" onchange="li999SyncSA()"></div>'+
-     '<div><label>เบี้ยประกันภัยรายปี (บาท)</label><input id="l9Prem" type="text" inputmode="numeric" value="'+fmt(prem)+'" style="width:126px;text-align:right" oninput="grpCaret(this)" onchange="li999SyncPrem()"></div>'+
-     '<div><label>อัตราเบี้ยต่อทุน 1,000 บาท</label><input id="l9Rate" type="text" inputmode="decimal" value="'+rate.toFixed(2)+'" style="width:96px;text-align:right" onchange="li999SyncSA()"></div>'+
+     '<div><label>จำนวนเงินเอาประกันภัย (บาท)</label><input id="l9SA" type="text" inputmode="numeric" value="'+fmt(sa)+'" style="width:126px;text-align:right" oninput="grpCaret(this);li999SyncSA()"></div>'+
+     '<div><label>เบี้ยประกันภัยรายปี (บาท)</label><input id="l9Prem" type="text" inputmode="numeric" value="'+fmt(prem)+'" style="width:126px;text-align:right" oninput="grpCaret(this);li999SyncPrem()"></div>'+
+     '<div><label>อัตราเบี้ยต่อทุน 1,000 บาท</label><input id="l9Rate" type="text" inputmode="decimal" value="'+rate.toFixed(2)+'" style="width:96px;text-align:right" oninput="li999SyncSA()"></div>'+
      '<div class="agentonly"><label>เงื่อนไขคอมมิชชั่น</label><select id="l9Rider" onchange="renderLi999()">'+
        '<option value="high">เข้าเงื่อนไข (แนบ Rider ≥20% / ≥18,000 ต่อปี)</option><option value="low">ไม่เข้าเงื่อนไข</option></select></div>'+
    '</div>'+
